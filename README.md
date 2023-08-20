@@ -17,7 +17,7 @@ Clone this repository to your local machine:
 
 bash
 Copy code
-git clone https://github.com/your-username/bookip.git
+git clone https://github.com/your-username/BOOKIP.git
 Navigate to the project directory:
 
 bash
