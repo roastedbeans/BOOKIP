@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "jsx": "react",
+      // Optional: Specify the target ECMAScript version.
+      "target": "ES2021",
+      
+      // Optional: Specify the module system (CommonJS, ES6, etc.).
+      "module": "CommonJS",
+      "baseUrl": ".",
+      // Optional: Configure the paths for module resolution.
+      "paths": {
+        // Define paths for "shadcn" modules or namespaces.
+        "@/*": ["./src/*"]
+      }
+    },
+}
