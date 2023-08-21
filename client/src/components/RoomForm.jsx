@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
+import { useUser } from '@clerk/clerk-react';
 import Select from 'react-select';
 import {
 	createForm,
@@ -19,6 +20,8 @@ import { themes } from '../themes';
 import axios from 'axios';
 
 export default function RoomForm() {
+	const { user } = useUser();
+
 	const [selectedRoomType, setSelectedRoomType] = useState('');
 	const [selectedBedNumber, setSelectedBedNumber] = useState('');
 	const [selectedCrInclusion, setSelectedCrInclusion] = useState('');
@@ -48,6 +51,7 @@ export default function RoomForm() {
 	};
 
 	console.log(roomInfo);
+	console.log(user.id);
 
 	const onSubmit = (e) => {
 		e.preventDefault();

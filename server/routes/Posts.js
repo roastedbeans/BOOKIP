@@ -1,6 +1,7 @@
 const express = require('express');
+require('dotenv').config();
 const router = express.Router();
-const { RoomTypes, Rooms, Booking } = require('../models');
+const { RoomTypes, Rooms, Booking, Registration } = require('../models');
 
 // Get all room types
 router.get('/room-types', async (req, res) => {
@@ -18,6 +19,12 @@ router.get('/rooms', async (req, res) => {
 router.get('/bookings', async (req, res) => {
 	const bookings = await Booking.findAll();
 	res.json(bookings);
+});
+
+// Get Registration
+router.get('/registration', async (req, res) => {
+	const registration = await Registration.findAll();
+	res.json(registration);
 });
 
 // Create a new room type
@@ -39,6 +46,13 @@ router.post('/bookings', async (req, res) => {
 	const bookingData = req.body;
 	const newBooking = await Booking.create(bookingData);
 	res.json(newBooking);
+});
+
+// Create a new registration
+router.post('/registration', async (req, res) => {
+	const registrationData = req.body;
+	const newRegistration = await Registration.create(registrationData);
+	res.json(newRegistration);
 });
 
 module.exports = router;

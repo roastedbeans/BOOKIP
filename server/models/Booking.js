@@ -16,9 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		// customerEmail: {
-		// 	type: DataTypes.STRING,
-		// },
 		checkInDate: {
 			type: DataTypes.DATE,
 			allowNull: false,

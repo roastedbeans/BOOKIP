@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp } from '@clerk/clerk-react';
+import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp, useAuth } from '@clerk/clerk-react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Pages/Dashboard';
