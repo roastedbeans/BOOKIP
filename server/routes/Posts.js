@@ -1,11 +1,19 @@
 const express = require('express');
 require('dotenv').config();
 const router = express.Router();
+
 const { RoomTypes, Rooms, Booking, Registration } = require('../models');
 
 // Get all room types
 router.get('/room-types', async (req, res) => {
 	const roomTypes = await RoomTypes.findAll();
+	res.json(roomTypes);
+});
+
+// Get room type by registrationID
+router.get('/room-types/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	const roomTypes = await RoomTypes.findAll({ where: { registrationID } });
 	res.json(roomTypes);
 });
 
@@ -24,6 +32,13 @@ router.get('/bookings', async (req, res) => {
 // Get Registration
 router.get('/registration', async (req, res) => {
 	const registration = await Registration.findAll();
+	res.json(registration);
+});
+
+// Get hotel information by userID
+router.get('/registration/:userID', async (req, res) => {
+	const userID = req.params.userID;
+	const registration = await Registration.findOne({ where: { userID } });
 	res.json(registration);
 });
 

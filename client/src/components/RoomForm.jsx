@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
-import { useUser } from '@clerk/clerk-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import Select from 'react-select';
 import {
 	createForm,
@@ -18,10 +17,10 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { themes } from '../themes';
 import axios from 'axios';
+import { HotelInfo } from '../Posts';
+import 'react-responsive-modal/styles.css';
 
 export default function RoomForm() {
-	const { user } = useUser();
-
 	const [selectedRoomType, setSelectedRoomType] = useState('');
 	const [selectedBedNumber, setSelectedBedNumber] = useState('');
 	const [selectedCrInclusion, setSelectedCrInclusion] = useState('');
@@ -29,8 +28,9 @@ export default function RoomForm() {
 
 	const [roomInfo, setRoomInfo] = useState(createForm);
 
+	const registrationID = HotelInfo().id;
 	const onHandleChange = (e) => {
-		setRoomInfo({ ...roomInfo, [e.target.id]: e.target.value });
+		setRoomInfo({ ...roomInfo, [e.target.id]: e.target.value, registrationID: registrationID });
 	};
 
 	const onHandleRoomType = (e) => {
@@ -50,9 +50,7 @@ export default function RoomForm() {
 		setSelectedTvInclusion(e);
 	};
 
-	console.log(roomInfo);
-	console.log(user.id);
-
+	console.log(registrationID);
 	const onSubmit = (e) => {
 		e.preventDefault();
 		try {
@@ -67,10 +65,11 @@ export default function RoomForm() {
 		setSelectedBedNumber('');
 		setSelectedCrInclusion('');
 		setSelectedTvInclusion('');
+		window.location.reload();
 	};
 
 	return (
-		<Card className='w-fit'>
+		<Card className='w-fit shadow-none border-none'>
 			<CardHeader>
 				<CardTitle>Create Room</CardTitle>
 				<CardDescription>Create your room now</CardDescription>
