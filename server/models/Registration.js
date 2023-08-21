@@ -1,8 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = function(sequelize, DataTypes) {
-	const RoomTypes = sequelize.define('RoomTypes', {
-		registrationID: {
+	const Registration = sequelize.define('Registration', {
+		userID: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
@@ -12,35 +12,31 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			allowNull: false,
 		},
-		name: {
+		hotelName: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		roomType: {
+		contactNumber: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		bedNumber: {
+		street: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		crInclusion: {
+		city: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		tvInclusion: {
+		province: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		price12h: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		price24h: {
+		country: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
 	});
 
-	return RoomTypes;
+	return Registration;
 };
