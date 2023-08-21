@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp, useAuth } from '@clerk/clerk-react';
+import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp } from '@clerk/clerk-react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Pages/Dashboard';
@@ -67,7 +67,7 @@ function App() {
 	const [roomTypes, setRoomTypes] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:5000/posts/room-types').then((response) => {
+		axios.get('http://localhost:5000/posts/registration').then((response) => {
 			//console.log(response.data);
 		});
 	}, []);

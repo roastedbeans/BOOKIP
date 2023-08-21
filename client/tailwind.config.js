@@ -4,6 +4,15 @@ module.exports = {
 	darkMode: ['class'],
 	content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}', './app/**/*.{js,jsx}', './src/**/*.{js,jsx}'],
 	theme: {
+		screens: {
+			'2xl': '1440px',
+			xl: '1200px',
+			lg: '1024px',
+			md: '768px',
+			sm: '640px',
+			xs: '475px',
+			'2xs': '375px',
+		},
 		container: {
 			center: true,
 			padding: '2rem',

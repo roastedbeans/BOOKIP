@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 export const createForm = {
+	registrationID: '',
 	name: '',
 	roomType: '',
 	bedNumber: '',
@@ -8,6 +9,17 @@ export const createForm = {
 	tvInclusion: '',
 	price12h: '',
 	price24h: '',
+};
+
+export const registerForm = {
+	userID: '',
+	hotelName: '',
+	contactNumber: '',
+	street: '',
+	city: '',
+	province: '',
+	country: '',
+	zipCode: '',
 };
 
 export const FormSchema = Yup.object({
