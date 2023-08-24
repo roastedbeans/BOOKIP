@@ -38,7 +38,7 @@ export default function RoomForm() {
 		<Card className='w-fit'>
 			<CardHeader>
 				<CardTitle>Register Hotel</CardTitle>
-				<CardDescription>Please fill us the form</CardDescription>
+				<CardDescription>Please fill-up the form</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={onSubmit}>
@@ -133,7 +133,9 @@ export default function RoomForm() {
 						</div>
 					</div>
 					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
-						<Button type='button' variant='outline'>
+						<Button
+							type='button'
+							variant='outline'>
 							Cancel
 						</Button>
 						<Button type='submit'>Register</Button>

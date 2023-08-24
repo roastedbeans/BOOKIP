@@ -15,7 +15,7 @@ import {
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
-import { themes } from '../themes';
+import { themes, customStyles } from '../themes';
 import axios from 'axios';
 import { HotelInfo } from '../Posts';
 import 'react-responsive-modal/styles.css';
@@ -92,6 +92,7 @@ export default function RoomForm() {
 						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='roomType'>Room Type</Label>
 							<Select
+								styles={customStyles}
 								theme={themes}
 								id='roomType'
 								options={roomTypeOptions}
@@ -99,12 +100,12 @@ export default function RoomForm() {
 								defaultValue={roomTypeOptions[0]}
 								value={selectedRoomType}
 								placeholder='Select room type'
-								required
-							></Select>
+								required></Select>
 						</div>
 						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='bedNumber'>Bed Number</Label>
 							<Select
+								styles={customStyles}
 								theme={themes}
 								id='bedNumber'
 								options={bedNumberOptions}
@@ -112,12 +113,12 @@ export default function RoomForm() {
 								defaultValue={bedNumberOptions[0]}
 								value={selectedBedNumber}
 								placeholder='Select bed number'
-								required
-							></Select>
+								required></Select>
 						</div>
-						<div className='flex flex-col space-y-1.5 text-sm'>
+						<div className='flex flex-col space-y-1.5 text-sm shadow-sm'>
 							<Label htmlFor='crInclusion'>CR Inclusion</Label>
 							<Select
+								styles={customStyles}
 								theme={themes}
 								id='crInclusion'
 								options={crInclusionOptions}
@@ -125,12 +126,12 @@ export default function RoomForm() {
 								defaultValue={crInclusionOptions[0]}
 								value={selectedCrInclusion}
 								placeholder='Select CR inclusion'
-								required
-							></Select>
+								required></Select>
 						</div>
 						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='tvInclusion'>TV Inclusion</Label>
 							<Select
+								styles={customStyles}
 								theme={themes}
 								id='tvInclusion'
 								options={tvInclusionOptions}
@@ -138,8 +139,7 @@ export default function RoomForm() {
 								defaultValue={tvInclusionOptions[0]}
 								value={selectedTvInclusion}
 								placeholder='Select TV inclusion'
-								required
-							></Select>
+								required></Select>
 						</div>
 						<div className='flex gap-4 sm:flex-row flex-col'>
 							<div className='flex flex-col space-y-1.5'>
@@ -169,10 +169,16 @@ export default function RoomForm() {
 						</div>
 					</div>
 					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
-						<Button type='button' variant='outline'>
+						<Button
+							type='button'
+							variant='outline'>
 							Cancel
 						</Button>
-						<Button type='submit'>Create</Button>
+						<Button
+							type='submit'
+							className='bg-darkColor'>
+							Create
+						</Button>
 					</CardFooter>
 				</form>
 			</CardContent>

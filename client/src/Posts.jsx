@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 
-export default function HasContent() {
-	const [hasContent, setHasContent] = useState(false);
-
+export default function Posts() {
+	const [posts, setPosts] = useState([]);
 	useEffect(() => {
-		axios.get('http://localhost:5000/posts/registration').then((response) => {
-			console.log(response.data);
-			setHasContent(response.data.length > 0);
+		axios.get('http://localhost:5000/posts').then((response) => {
+			setPosts(response.data);
 		});
 	}, []);
-
-	return hasContent;
 }
 
 export function HotelInfo() {
