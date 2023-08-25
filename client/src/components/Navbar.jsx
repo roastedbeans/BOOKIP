@@ -30,8 +30,7 @@ export default function Navbar() {
 		<div className='mb-16'>
 			<Disclosure
 				as='nav'
-				className={`z-10 transition-all fixed w-full bg-gray-950 ${navbar ? 'opacity-80' : 'opacity-100'}`}
-			>
+				className={`top-0 z-10 transition-all fixed w-full bg-gray-950 ${navbar ? 'opacity-80' : 'opacity-100'}`}>
 				{({ open }) => (
 					<>
 						<div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 '>
@@ -42,15 +41,25 @@ export default function Navbar() {
 										<span className='absolute -inset-0.5' />
 										<span className='sr-only'>Open main menu</span>
 										{open ? (
-											<XMarkIcon className='block h-6 w-6' aria-hidden='true' />
+											<XMarkIcon
+												className='block h-6 w-6'
+												aria-hidden='true'
+											/>
 										) : (
-											<Bars3Icon className='block h-6 w-6' aria-hidden='true' />
+											<Bars3Icon
+												className='block h-6 w-6'
+												aria-hidden='true'
+											/>
 										)}
 									</Disclosure.Button>
 								</div>
 								<div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
 									<div className='flex flex-shrink-0 items-center'>
-										<img className='h-10 w-auto' src={logo} alt='Your Company' />
+										<img
+											className='h-10 w-auto'
+											src={logo}
+											alt='Your Company'
+										/>
 									</div>
 									<div className='hidden sm:ml-6 sm:block'>
 										<div className='flex space-x-4'>
@@ -62,8 +71,7 @@ export default function Navbar() {
 														item.current ? 'bg-gray-900 text-white' : 'text-white hover:bg-gray-800 hover:text-white',
 														'rounded-md px-3 py-2 text-sm font-medium'
 													)}
-													aria-current={item.current ? 'page' : undefined}
-												>
+													aria-current={item.current ? 'page' : undefined}>
 													{item.name}
 												</a>
 											))}
@@ -87,8 +95,7 @@ export default function Navbar() {
 											item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
 											'block rounded-md px-3 py-2 text-base font-medium'
 										)}
-										aria-current={item.current ? 'page' : undefined}
-									>
+										aria-current={item.current ? 'page' : undefined}>
 										{item.name}
 									</Disclosure.Button>
 								))}
