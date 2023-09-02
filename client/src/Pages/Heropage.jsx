@@ -40,10 +40,10 @@ function HeroPage() {
 						alt='bg'
 					/>
 
-					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-0 3xl:gap-12 xl:gap-0 gap-10 justify-center 2xl:mt-0 mt-44'>
+					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-12 xl:gap-0 gap-10 justify-center 2xl:mt-0 mt-44'>
 						<div className='flex self-center flex-col gap-6 justify-start items-center'>
 							<h1
-								className={`transition-all duration-500 xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
+								className={`transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
 									showSignUp || showSignIn ? '2xl:-translate-x-[240px] 2xl:-translate-y-[0]' : ''
 								}`}
 							>
@@ -55,7 +55,7 @@ function HeroPage() {
 								}`}
 							>
 								<img src={BookipTrans2} className='2xl:h-24 xl:h-20 md:h-16 sm:h-12 h-10 w-fit' />
-								<h1 className='font-normal xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-3xl 2xs:text-3xl text-2xl text-white '>
+								<h1 className='font-normal xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-2xl text-2xl text-white '>
 									B<span className='font-bold '>OO</span>KIP
 								</h1>
 							</div>
@@ -87,7 +87,7 @@ function HeroPage() {
 							}`}
 						>
 							<div
-								className={`translate-x-[50%] transition duration-500 2xl:absolute relative pb-12 ease-in-out ${
+								className={`2xl:translate-x-0 translate-x-[50%] transition duration-500 2xl:absolute relative pb-12 ease-in-out ${
 									showSignUp || !showSignIn
 										? '2xl:-translate-x-[170px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-100 opacity-100'
 										: '2xl:translate-x-[1080px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-0 opacity-0'
@@ -96,7 +96,7 @@ function HeroPage() {
 								<SignUp path='/' routing='path' />
 							</div>
 							<div
-								className={`-translate-x-[50%] transition duration-500 2xl:absolute relative pb-0 ease-in-out ${
+								className={`2xl:translate-x-0 -translate-x-[50%] transition duration-500 2xl:absolute relative pb-0 ease-in-out ${
 									!showSignUp || showSignIn
 										? '2xl:-translate-x-[170px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-100 opacity-100'
 										: '2xl:translate-x-[1080px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-0 opacity-0'
