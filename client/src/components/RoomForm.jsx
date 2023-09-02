@@ -52,7 +52,6 @@ export default function RoomForm() {
 
 	console.log(registrationID);
 	const onSubmit = (e) => {
-		e.preventDefault();
 		try {
 			axios.post('http://localhost:5000/posts/room-types', roomInfo).then((response) => {
 				console.log(response.data);
@@ -100,7 +99,8 @@ export default function RoomForm() {
 								defaultValue={roomTypeOptions[0]}
 								value={selectedRoomType}
 								placeholder='Select room type'
-								required></Select>
+								required
+							></Select>
 						</div>
 						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='bedNumber'>Bed Number</Label>
@@ -113,7 +113,8 @@ export default function RoomForm() {
 								defaultValue={bedNumberOptions[0]}
 								value={selectedBedNumber}
 								placeholder='Select bed number'
-								required></Select>
+								required
+							></Select>
 						</div>
 						<div className='flex flex-col space-y-1.5 text-sm shadow-sm'>
 							<Label htmlFor='crInclusion'>CR Inclusion</Label>
@@ -126,7 +127,8 @@ export default function RoomForm() {
 								defaultValue={crInclusionOptions[0]}
 								value={selectedCrInclusion}
 								placeholder='Select CR inclusion'
-								required></Select>
+								required
+							></Select>
 						</div>
 						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='tvInclusion'>TV Inclusion</Label>
@@ -139,7 +141,8 @@ export default function RoomForm() {
 								defaultValue={tvInclusionOptions[0]}
 								value={selectedTvInclusion}
 								placeholder='Select TV inclusion'
-								required></Select>
+								required
+							></Select>
 						</div>
 						<div className='flex gap-4 sm:flex-row flex-col'>
 							<div className='flex flex-col space-y-1.5'>
@@ -169,14 +172,10 @@ export default function RoomForm() {
 						</div>
 					</div>
 					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
-						<Button
-							type='button'
-							variant='outline'>
+						<Button type='button' variant='outline'>
 							Cancel
 						</Button>
-						<Button
-							type='submit'
-							className='bg-darkColor'>
+						<Button type='submit' className='bg-darkColor'>
 							Create
 						</Button>
 					</CardFooter>

@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent } from './ui/card';
 import { IoAddCircleOutline } from 'react-icons/io5';
 import { Modal } from 'react-responsive-modal';
-import HasContent from '../Posts';
 import RoomForm from './RoomForm';
 import RegistrationForm from './RegistrationForm';
 
@@ -30,7 +29,7 @@ const AddRoomButton = () => {
 					},
 				}}
 			>
-				{HasContent() ? <RoomForm /> : <RegistrationForm />}
+				<RoomForm />
 			</Modal>
 		</>
 	);

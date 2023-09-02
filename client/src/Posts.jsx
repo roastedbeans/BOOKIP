@@ -17,6 +17,7 @@ export function HotelInfo() {
 	useEffect(() => {
 		axios.get(`http://localhost:5000/posts/registration/${user.id}`).then((response) => {
 			setHotelInfo(response.data);
+			console.log(response.data);
 		});
 	}, [user.id]);
 

@@ -20,7 +20,6 @@ export default function RoomForm() {
 	};
 
 	console.log(hotelInfo);
-	console.log(user.id);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -133,9 +132,7 @@ export default function RoomForm() {
 						</div>
 					</div>
 					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
-						<Button
-							type='button'
-							variant='outline'>
+						<Button type='button' variant='outline'>
 							Cancel
 						</Button>
 						<Button type='submit'>Register</Button>
