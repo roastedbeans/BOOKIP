@@ -30,7 +30,9 @@ export default function Navbar() {
 		<div className='mb-16'>
 			<Disclosure
 				as='nav'
-				className={`top-0 z-10 transition-all fixed w-full bg-gray-950 ${navbar ? 'opacity-80' : 'opacity-100'}`}
+				className={` drop-shadow-2xl top-0 z-10 transition-all fixed w-full bg-gray-950 ${
+					navbar ? 'opacity-80' : 'opacity-100'
+				}`}
 			>
 				{({ open }) => (
 					<>

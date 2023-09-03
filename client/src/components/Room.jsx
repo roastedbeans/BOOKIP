@@ -4,13 +4,21 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from './ui/separator';
 import { BiBath, BiBed, BiEdit, BiTime, BiTv } from 'react-icons/bi';
 import { Button } from './ui/button';
-import AddRoomButton from '../components/AddRoomButton';
+import { Modal } from 'react-responsive-modal';
+import RoomFormUpdate from './RoomFormUpdate';
+import AddRoomButton from './AddRoomButton';
 
 const Rooms = () => {
-	const registrationID = HotelInfo().id;
-	const roomInfo = RoomInfo(registrationID);
-
+	const registrationID = HotelInfo();
+	const roomInfo = RoomInfo(registrationID.id);
 	const [fetchedRoomInfo, setFetchedRoomInfo] = useState([]);
+	const [selectedRoom, setSelectedRoom] = useState([]);
+	const [open, setOpen] = React.useState(false);
+	const onCloseModal = () => setOpen(false);
+	const onOpenModal = (room) => {
+		setSelectedRoom(room);
+		setOpen(true);
+	};
 
 	useEffect(() => {
 		setFetchedRoomInfo(roomInfo);
@@ -27,9 +35,12 @@ const Rooms = () => {
 						key={index}
 					>
 						<CardHeader>
-							<CardTitle className='flex w-full justify-between items-start'>
+							<CardTitle className='flex w-full justify-between items-start bg-none'>
 								{room.name}
-								<Button className=' h-fit m-0 p-0 bg-transparent shadow-none 2xl:hover:scale-[105%] 2xl:hover:opacity-70 hover:bg-transparent transition-all self-start'>
+								<Button
+									onClick={() => onOpenModal(room)}
+									className=' h-fit m-0 p-0 bg-transparent shadow-none 2xl:hover:scale-[105%] 2xl:hover:opacity-70 hover:bg-transparent transition-all self-start'
+								>
 									<BiEdit className=' text-black' />
 								</Button>
 							</CardTitle>
@@ -66,6 +77,19 @@ const Rooms = () => {
 				);
 			})}
 			<AddRoomButton />
+			<Modal
+				open={open}
+				onClose={onCloseModal}
+				center
+				styles={{
+					modal: {
+						backgroundColor: 'white',
+						borderRadius: '16px',
+					},
+				}}
+			>
+				<RoomFormUpdate room={selectedRoom} />
+			</Modal>
 		</div>
 	);
 };

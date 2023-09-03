@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import React, { useState, useRef } from 'react';
 import { SignIn, SignUp } from '@clerk/clerk-react';
 import BookipLogo1 from '../assets/Bookip-logo1.png';
@@ -17,15 +18,15 @@ function HeroPage() {
 	};
 
 	return (
-		<div className={`w-full h-screen overflow-hidden m-0 p-0`}>
-			<img src={background} className=' absolute object-cover object-center -z-10 h-screen w-full' />{' '}
+		<div className={`w-full h-screen overflow-x-hidden m-0 p-0`}>
+			<img src={background} className=' absolute object-cover object-center -z-10 h-screen w-full' />
 			{/* Code block starts */}
 			<div
 				ref={containerRef}
 				className='w-full h-screen sm:p-16 xs:p-4 p-0 overflow-x-hidden scroll-smooth 2xl:overflow-y-hidden overflow-y-auto'
 			>
 				<div
-					className={`relative rounded-lg container flex flex-col glass-container ${
+					className={`relative rounded-lg container py-10 flex flex-col glass-container 2xl:h-full ${
 						showSignIn || showSignUp ? 'h-fit' : 'h-full'
 					}`}
 				>
@@ -40,18 +41,25 @@ function HeroPage() {
 						alt='bg'
 					/>
 
-					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-12 xl:gap-0 gap-10 justify-center 2xl:mt-0 mt-44'>
-						<div className='flex self-center flex-col gap-6 justify-start items-center'>
+					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-0 gap-10 justify-center items-center 2xl:px-20'>
+						<div className='flex flex-col gap-6 justify-center items-center w-full h-full'>
 							<h1
-								className={`transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[240px] 2xl:-translate-y-[0]' : ''
+								className={`w-full transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
+									showSignUp || showSignIn ? '2xl:translate-x-[0px]' : '2xl:translate-x-[50%]'
 								}`}
 							>
-								Keep it organized with
+								Keep it organized
+							</h1>
+							<h1
+								className={`w-full transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
+									showSignUp || showSignIn ? '2xl:-translate-x-[200px]' : '2xl:translate-x-[50%]'
+								}`}
+							>
+								with
 							</h1>
 							<div
 								className={`transition-all duration-500 flex w-full h-fit items-center gap-4 justify-center ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[380px] 2xl:-translate-y-[0] ' : ''
+									showSignUp || showSignIn ? '2xl:-translate-x-[100px]' : '2xl:translate-x-[50%]'
 								}`}
 							>
 								<img src={BookipTrans2} className='2xl:h-24 xl:h-20 md:h-16 sm:h-12 h-10 w-fit' />
@@ -62,7 +70,7 @@ function HeroPage() {
 
 							<div
 								className={`transition-all duration-500 flex w-full justify-center ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[380px]  2xl:-translate-y-[0]' : ''
+									showSignUp || showSignIn ? '2xl:-translate-x-[60px]' : '2xl:translate-x-[50%]'
 								}`}
 							>
 								<button
@@ -79,27 +87,24 @@ function HeroPage() {
 								</button>
 							</div>
 						</div>
+						{/* Clerk Card */}
 						<div
-							className={`transition duration-500 flex 2xl:justify-start self-center justify-center xl:items-center 2xl:w-full w-full items-start ${
+							className={` flex transition duration-500 2xl:justify-start self-center justify-center xl:items-center w-full items-start ${
 								showSignUp || showSignIn
-									? '2xl:-translate-x-[0] 2xl:translate-y-[0] 2xl:scale-100 scale-y-100 h-fit m-0'
-									: '2xl:translate-x-[1000px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-0 h-[0] mt-32'
+									? '2xl:-translate-x-[0] 2xl:scale-100 scale-y-100 h-fit relative'
+									: '2xl:translate-x-[1000px] 2xl:scale-100 scale-y-0 h-[0] relative'
 							}`}
 						>
 							<div
-								className={`2xl:translate-x-0 translate-x-[50%] transition duration-500 2xl:absolute relative pb-12 ease-in-out ${
-									showSignUp || !showSignIn
-										? '2xl:-translate-x-[170px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-100 opacity-100'
-										: '2xl:translate-x-[1080px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-0 opacity-0'
+								className={`2xl:translate-x-40 translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
+									showSignUp || !showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
 								<SignUp path='/' routing='path' />
 							</div>
 							<div
-								className={`2xl:translate-x-0 -translate-x-[50%] transition duration-500 2xl:absolute relative pb-0 ease-in-out ${
-									!showSignUp || showSignIn
-										? '2xl:-translate-x-[170px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-100 opacity-100'
-										: '2xl:translate-x-[1080px] 2xl:translate-y-[0] 2xl:scale-100 scale-y-0 opacity-0'
+								className={`2xl:translate-x-40 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
+									!showSignUp || showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
 								<SignIn path='/' routing='path' />
