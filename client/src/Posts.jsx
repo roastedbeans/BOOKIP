@@ -55,7 +55,7 @@ export function HotelInfo() {
 export function RoomInfo(registrationID) {
 	const [roomInfo, setRoomInfo] = useState([]);
 	useEffect(() => {
-		axios.get(`http://localhost:5000/posts/room-types/registration/${registrationID}`).then((response) => {
+		axios.get(`http://localhost:5000/posts/room/registration/${registrationID}`).then((response) => {
 			//sort by room name
 			const sortedData = response.data.sort((a, b) => (a.name > b.name ? 1 : -1));
 			setRoomInfo(sortedData);

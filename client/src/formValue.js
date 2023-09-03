@@ -9,6 +9,7 @@ export const createForm = {
 	tvInclusion: '',
 	price12h: '',
 	price24h: '',
+	status: false,
 };
 
 export const registerForm = {
@@ -20,6 +21,17 @@ export const registerForm = {
 	province: '',
 	country: '',
 	zipCode: '',
+};
+
+export const bookingForm = {
+	id: '',
+	roomID: '',
+	customerName: '',
+	customerPhone: '',
+	hours: '',
+	checkInDate: '',
+	checkOutDate: '',
+	status: false,
 };
 
 export const FormSchema = Yup.object({
@@ -51,6 +63,7 @@ export const FormSchema = Yup.object({
 		.min(2)
 		.max(50)
 		.required(),
+	status: Yup.boolean().required(),
 });
 
 export const bedNumberOptions = [
@@ -71,4 +84,8 @@ export const tvInclusionOptions = [
 export const roomTypeOptions = [
 	{ value: 'Ordinary', label: 'Ordinary' },
 	{ value: 'Airconditioned', label: 'Airconditioned' },
+];
+export const hoursOptions = [
+	{ value: '12 hours', label: '12 hours' },
+	{ value: '24 hours', label: '24 hours' },
 ];

@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = function(sequelize, DataTypes) {
-	const RoomTypes = sequelize.define('RoomTypes', {
+	const Room = sequelize.define('Room', {
 		registrationID: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -40,7 +40,12 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		status: {
+			defaultValue: false,
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+		},
 	});
 
-	return RoomTypes;
+	return Room;
 };
