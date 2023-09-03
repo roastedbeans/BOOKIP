@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import Select from 'react-select';
 import {
@@ -12,64 +12,64 @@ import {
 	tvInclusionOptions,
 	roomTypeOptions,
 } from '../formValue';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 import { themes, customStyles } from '../themes';
 import axios from 'axios';
 import { HotelInfo } from '../Posts';
 
-export default function RoomForm() {
-	const [selectedRoomType, setSelectedRoomType] = useState('');
-	const [selectedBedNumber, setSelectedBedNumber] = useState('');
-	const [selectedCrInclusion, setSelectedCrInclusion] = useState('');
-	const [selectedTvInclusion, setSelectedTvInclusion] = useState('');
-
-	const [roomInfo, setRoomInfo] = useState(createForm);
+export default function RoomFormUpdate(room) {
+	const [roomInfo, setRoomInfo] = useState(room.room);
 
 	const registrationID = HotelInfo().id;
 	const onHandleChange = (e) => {
 		setRoomInfo({ ...roomInfo, [e.target.id]: e.target.value, registrationID: registrationID });
 	};
-
 	const onHandleRoomType = (e) => {
 		setRoomInfo({ ...roomInfo, roomType: e.value });
-		setSelectedRoomType(e);
 	};
 	const onHandleBedNumber = (e) => {
 		setRoomInfo({ ...roomInfo, bedNumber: e.value });
-		setSelectedBedNumber(e);
 	};
 	const onHandleCrInclusion = (e) => {
 		setRoomInfo({ ...roomInfo, crInclusion: e.value });
-		setSelectedCrInclusion(e);
 	};
 	const onHandleTvInclusion = (e) => {
 		setRoomInfo({ ...roomInfo, tvInclusion: e.value });
-		setSelectedTvInclusion(e);
 	};
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
+		e.preventDefault();
 		try {
-			axios.post('http://localhost:5000/posts/room-types', roomInfo).then((response) => {
+			await axios.put(`http://localhost:5000/posts/room-types/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
 			console.log(err);
 		}
 		setRoomInfo(createForm);
-		setSelectedRoomType('');
-		setSelectedBedNumber('');
-		setSelectedCrInclusion('');
-		setSelectedTvInclusion('');
+		window.location.reload();
+	};
+
+	const handleDeleteRoom = async (e) => {
+		e.preventDefault();
+		try {
+			await axios.delete(`http://localhost:5000/posts/room-types/id/${room.room.id}`, roomInfo).then((response) => {
+				console.log(response.data);
+			});
+		} catch (err) {
+			console.log(err);
+		}
+		setRoomInfo(createForm);
 		window.location.reload();
 	};
 
 	return (
-		<Card className='w-full shadow-none border-none'>
+		<Card className='w-fit shadow-none border-none'>
 			<CardHeader>
-				<CardTitle>Create Room</CardTitle>
-				<CardDescription>Create your room now</CardDescription>
+				<CardTitle>Update Room</CardTitle>
+				<CardDescription>Update selected room</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={onSubmit}>
@@ -95,8 +95,7 @@ export default function RoomForm() {
 								id='roomType'
 								options={roomTypeOptions}
 								onChange={onHandleRoomType}
-								defaultValue={roomTypeOptions[0]}
-								value={selectedRoomType}
+								value={roomTypeOptions.filter((room) => room.value === roomInfo.roomType)[0]}
 								placeholder='Select room type'
 								required
 							></Select>
@@ -110,8 +109,7 @@ export default function RoomForm() {
 								id='bedNumber'
 								options={bedNumberOptions}
 								onChange={onHandleBedNumber}
-								defaultValue={bedNumberOptions[0]}
-								value={selectedBedNumber}
+								value={bedNumberOptions.filter((bed) => bed.value === roomInfo.bedNumber)[0]}
 								placeholder='Select bed number'
 								required
 							></Select>
@@ -125,8 +123,7 @@ export default function RoomForm() {
 								id='crInclusion'
 								options={crInclusionOptions}
 								onChange={onHandleCrInclusion}
-								defaultValue={crInclusionOptions[0]}
-								value={selectedCrInclusion}
+								value={crInclusionOptions.filter((cr) => cr.value === roomInfo.crInclusion)[0]}
 								placeholder='Select CR inclusion'
 								required
 							></Select>
@@ -140,8 +137,7 @@ export default function RoomForm() {
 								id='tvInclusion'
 								options={tvInclusionOptions}
 								onChange={onHandleTvInclusion}
-								defaultValue={tvInclusionOptions[0]}
-								value={selectedTvInclusion}
+								value={tvInclusionOptions.filter((tv) => tv.value === roomInfo.tvInclusion)[0]}
 								placeholder='Select TV inclusion'
 								required
 							></Select>
@@ -174,11 +170,11 @@ export default function RoomForm() {
 						</div>
 					</div>
 					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
-						<Button type='button' variant='outline'>
-							Cancel
+						<Button type='button' onClick={handleDeleteRoom} variant='outline'>
+							Remove
 						</Button>
 						<Button type='submit' className='bg-darkColor'>
-							Create
+							Update
 						</Button>
 					</CardFooter>
 				</form>

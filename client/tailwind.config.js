@@ -5,6 +5,7 @@ module.exports = {
 	content: ['./pages/**/*.{js,jsx}', './components/**/*.{js,jsx}', './app/**/*.{js,jsx}', './src/**/*.{js,jsx}'],
 	theme: {
 		screens: {
+			'3xl': '1880px',
 			'2xl': '1440px',
 			xl: '1200px',
 			lg: '1024px',
@@ -17,6 +18,7 @@ module.exports = {
 			center: true,
 			padding: '2rem',
 			screens: {
+				'3xl': '1600px',
 				'2xl': '1400px',
 			},
 		},

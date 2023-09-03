@@ -10,21 +10,21 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import axios from 'axios';
 
-export default function HotelForm() {
+export default function HotelFormUpdate(hotel) {
 	const { user } = useUser();
 
-	const [hotelInfo, setHotelInfo] = useState(registerForm);
+	const [hotelInfo, setHotelInfo] = useState(hotel.hotel);
 
 	const onHandleChange = (e) => {
 		setHotelInfo({ ...hotelInfo, [e.target.id]: e.target.value, userID: user.id });
 	};
-
+	console.log(hotel.hotel.id);
 	console.log(hotelInfo);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post('http://localhost:5000/posts/registrations', hotelInfo).then((response) => {
+			await axios.put(`http://localhost:5000/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -34,11 +34,31 @@ export default function HotelForm() {
 		window.location.reload();
 	};
 
+	const handleDeleteHotel = async (e) => {
+		e.preventDefault();
+		try {
+			await axios
+				.delete(`http://localhost:5000/posts/registrations/id/${hotel.hotel.id}`, hotelInfo)
+				.then((response) => {
+					console.log(response.data);
+				});
+			await axios
+				.delete(`http://localhost:5000/posts/room-types/registration/${hotel.hotel.id}`, hotelInfo)
+				.then((response) => {
+					console.log(response.data);
+				});
+		} catch (err) {
+			console.log(err);
+		}
+		setHotelInfo(registerForm);
+		window.location.reload();
+	};
+
 	return (
-		<Card className='w-fit'>
+		<Card className='w-fit shadow-none border-none'>
 			<CardHeader>
-				<CardTitle>Register Hotel</CardTitle>
-				<CardDescription>Please fill-up the form</CardDescription>
+				<CardTitle>Update Hotel</CardTitle>
+				<CardDescription>Provide the updated information</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={onSubmit}>
@@ -132,8 +152,13 @@ export default function HotelForm() {
 							</div>
 						</div>
 					</div>
-					<CardFooter className='flex justify-end m-0 p-0 mt-4'>
-						<Button type='submit'>Register</Button>
+					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
+						<Button type='button' onClick={handleDeleteHotel} variant='outline'>
+							Remove
+						</Button>
+						<Button type='submit' className='bg-darkColor'>
+							Update
+						</Button>
 					</CardFooter>
 				</form>
 			</CardContent>
