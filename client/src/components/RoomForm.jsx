@@ -51,7 +51,7 @@ export default function RoomForm() {
 
 	const onSubmit = (e) => {
 		try {
-			axios.post('http://localhost:5000/posts/room-types', roomInfo).then((response) => {
+			axios.post('http://localhost:5000/posts/room', roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -66,15 +66,15 @@ export default function RoomForm() {
 	};
 
 	return (
-		<Card className='w-full shadow-none border-none'>
+		<Card className='shadow-none border-none w-full flex'>
 			<CardHeader>
 				<CardTitle>Create Room</CardTitle>
 				<CardDescription>Create your room now</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<form onSubmit={onSubmit}>
-					<div className='grid w-full items-center gap-4'>
-						<div className='flex flex-col space-y-1.5'>
+					<div className='grid items-center gap-4'>
+						<div className='flex flex-col space-y-1.5 '>
 							<Label htmlFor='name'>Name</Label>
 							<Input
 								id='name'

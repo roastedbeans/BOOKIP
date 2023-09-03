@@ -1,8 +1,17 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { useState, useEffect } from 'react';
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetFooter,
+	SheetTrigger,
+} from '@/components/ui/sheet';
+import { BiEdit } from 'react-icons/bi';
 import { useUser } from '@clerk/clerk-react';
 import { registerForm } from '../formValue';
 import { Button } from './ui/button';
@@ -12,14 +21,15 @@ import axios from 'axios';
 
 export default function HotelFormUpdate(hotel) {
 	const { user } = useUser();
+	const [hotelInfo, setHotelInfo] = useState([]);
 
-	const [hotelInfo, setHotelInfo] = useState(hotel.hotel);
+	useEffect(() => {
+		setHotelInfo(hotel.hotel);
+	}, [hotel.hotel]);
 
 	const onHandleChange = (e) => {
 		setHotelInfo({ ...hotelInfo, [e.target.id]: e.target.value, userID: user.id });
 	};
-	console.log(hotel.hotel.id);
-	console.log(hotelInfo);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -43,7 +53,7 @@ export default function HotelFormUpdate(hotel) {
 					console.log(response.data);
 				});
 			await axios
-				.delete(`http://localhost:5000/posts/room-types/registration/${hotel.hotel.id}`, hotelInfo)
+				.delete(`http://localhost:5000/posts/room/registration/${hotel.hotel.id}`, hotelInfo)
 				.then((response) => {
 					console.log(response.data);
 				});
@@ -55,15 +65,18 @@ export default function HotelFormUpdate(hotel) {
 	};
 
 	return (
-		<Card className='w-fit shadow-none border-none'>
-			<CardHeader>
-				<CardTitle>Update Hotel</CardTitle>
-				<CardDescription>Provide the updated information</CardDescription>
-			</CardHeader>
-			<CardContent>
+		<Sheet className='w-full shadow-none border-none h-fit'>
+			<SheetTrigger>
+				<BiEdit />
+			</SheetTrigger>
+			<SheetContent>
+				<SheetHeader>
+					<SheetTitle>Update Hotel</SheetTitle>
+					<SheetDescription>Provide the updated information</SheetDescription>
+				</SheetHeader>
 				<form onSubmit={onSubmit}>
-					<div className='grid w-full items-center gap-4'>
-						<div className='flex flex-col space-y-1.5'>
+					<div className='flex flex-col w-full h-full items-center gap-4 mt-4'>
+						<div className='flex flex-col space-y-1.5 w-full'>
 							<Label htmlFor='hotelName'>Hotel Name</Label>
 							<Input
 								id='hotelName'
@@ -75,7 +88,7 @@ export default function HotelFormUpdate(hotel) {
 								onChange={onHandleChange}
 							/>
 						</div>
-						<div className='flex flex-col space-y-1.5'>
+						<div className='flex flex-col space-y-1.5 w-full'>
 							<Label htmlFor='contactNumber'>Contact Number</Label>
 							<Input
 								id='contactNumber'
@@ -87,7 +100,7 @@ export default function HotelFormUpdate(hotel) {
 								onChange={onHandleChange}
 							/>
 						</div>
-						<div className='flex flex-col space-y-1.5'>
+						<div className='flex flex-col space-y-1.5 w-full'>
 							<Label htmlFor='street'>Street Address</Label>
 							<Input
 								id='street'
@@ -99,8 +112,8 @@ export default function HotelFormUpdate(hotel) {
 								onChange={onHandleChange}
 							/>
 						</div>
-						<div className='flex gap-4 sm:flex-row flex-col'>
-							<div className='flex flex-col space-y-1.5'>
+						<div className='flex gap-4 sm:flex-row flex-col w-full'>
+							<div className='flex flex-col space-y-1.5 w-full'>
 								<Label htmlFor='city'>City</Label>
 								<Input
 									id='city'
@@ -112,7 +125,7 @@ export default function HotelFormUpdate(hotel) {
 									required
 								/>
 							</div>
-							<div className='flex flex-col space-y-1.5'>
+							<div className='flex flex-col space-y-1.5 w-full'>
 								<Label htmlFor='province'>Province</Label>
 								<Input
 									id='province'
@@ -125,8 +138,8 @@ export default function HotelFormUpdate(hotel) {
 								/>
 							</div>
 						</div>
-						<div className='flex gap-4 sm:flex-row flex-col'>
-							<div className='flex flex-col space-y-1.5'>
+						<div className='flex gap-4 sm:flex-row flex-col w-full'>
+							<div className='flex flex-col space-y-1.5 w-full'>
 								<Label htmlFor='country'>Country</Label>
 								<Input
 									id='country'
@@ -138,7 +151,7 @@ export default function HotelFormUpdate(hotel) {
 									required
 								/>
 							</div>
-							<div className='flex flex-col space-y-1.5'>
+							<div className='flex flex-col space-y-1.5 w-full'>
 								<Label htmlFor='zipCode'>Zip Code</Label>
 								<Input
 									id='zipCode'
@@ -152,16 +165,16 @@ export default function HotelFormUpdate(hotel) {
 							</div>
 						</div>
 					</div>
-					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
+					<SheetFooter className='flex justify-between m-0 p-0 mt-4'>
 						<Button type='button' onClick={handleDeleteHotel} variant='outline'>
 							Remove
 						</Button>
 						<Button type='submit' className='bg-darkColor'>
 							Update
 						</Button>
-					</CardFooter>
+					</SheetFooter>
 				</form>
-			</CardContent>
-		</Card>
+			</SheetContent>
+		</Sheet>
 	);
 }

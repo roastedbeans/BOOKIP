@@ -19,8 +19,6 @@ export default function HotelForm() {
 		setHotelInfo({ ...hotelInfo, [e.target.id]: e.target.value, userID: user.id });
 	};
 
-	console.log(hotelInfo);
-
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {

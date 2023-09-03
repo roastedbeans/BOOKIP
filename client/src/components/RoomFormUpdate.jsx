@@ -2,7 +2,15 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetFooter,
+	SheetTrigger,
+} from '@/components/ui/sheet';
 import Select from 'react-select';
 import {
 	createForm,
@@ -12,6 +20,7 @@ import {
 	tvInclusionOptions,
 	roomTypeOptions,
 } from '../formValue';
+import { BiEdit } from 'react-icons/bi';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -42,7 +51,7 @@ export default function RoomFormUpdate(room) {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(`http://localhost:5000/posts/room-types/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.put(`http://localhost:5000/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -55,7 +64,7 @@ export default function RoomFormUpdate(room) {
 	const handleDeleteRoom = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.delete(`http://localhost:5000/posts/room-types/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.delete(`http://localhost:5000/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -66,12 +75,15 @@ export default function RoomFormUpdate(room) {
 	};
 
 	return (
-		<Card className='w-fit shadow-none border-none'>
-			<CardHeader>
-				<CardTitle>Update Room</CardTitle>
-				<CardDescription>Update selected room</CardDescription>
-			</CardHeader>
-			<CardContent>
+		<Sheet className='w-fit shadow-none border-none'>
+			<SheetTrigger>
+				<BiEdit />
+			</SheetTrigger>
+			<SheetContent>
+				<SheetHeader>
+					<SheetTitle>Update Room</SheetTitle>
+					<SheetDescription>Update selected room</SheetDescription>
+				</SheetHeader>
 				<form onSubmit={onSubmit}>
 					<div className='grid w-full items-center gap-4'>
 						<div className='flex flex-col space-y-1.5'>
@@ -169,16 +181,16 @@ export default function RoomFormUpdate(room) {
 							</div>
 						</div>
 					</div>
-					<CardFooter className='flex justify-between m-0 p-0 mt-4'>
+					<SheetFooter className='flex justify-between m-0 p-0 mt-4'>
 						<Button type='button' onClick={handleDeleteRoom} variant='outline'>
 							Remove
 						</Button>
 						<Button type='submit' className='bg-darkColor'>
 							Update
 						</Button>
-					</CardFooter>
+					</SheetFooter>
 				</form>
-			</CardContent>
-		</Card>
+			</SheetContent>
+		</Sheet>
 	);
 }

@@ -14,3 +14,10 @@ export const customStyles = {
 		//add shadow thin no focus
 	}),
 };
+
+export const modalCustomStyles = {
+	modal: {
+		backgroundColor: 'white',
+		borderRadius: '16px',
+	},
+};

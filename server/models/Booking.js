@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			primaryKey: true,
 		},
-		roomId: {
+		roomID: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
@@ -16,15 +16,20 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		hours: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		checkInDate: {
 			type: DataTypes.DATE,
 			allowNull: false,
 		},
 		checkOutDate: {
 			type: DataTypes.DATE,
-			allowNull: false,
+			allowNull: true,
 		},
 		status: {
+			defaultValue: false,
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 		},

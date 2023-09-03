@@ -1,56 +1,56 @@
 const express = require('express');
 require('dotenv').config();
 const router = express.Router();
-const { RoomTypes, Rooms, Booking, Registration } = require('../models');
+const { Room, Booking, Registration } = require('../models');
 
-// Create a new room type
-router.post('/room-types', async (req, res) => {
-	const roomType = req.body;
-	try {
-		const newRoomType = await RoomTypes.create(roomType);
-		if (!newRoomType) {
-			return res.status(404).json({ error: 'Room Type not found' });
-		}
-		res.json(newRoomType);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
-
-// Get all room types
-router.get('/room-types', async (req, res) => {
-	try {
-		const roomTypes = await RoomTypes.findAll();
-		res.json(roomTypes);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
-
-// Get room type by registrationID
-router.get('/room-types/registration/:registrationID', async (req, res) => {
-	const registrationID = req.params.registrationID;
-	try {
-		const roomTypes = await RoomTypes.findAll({ where: { registrationID } });
-		if (!roomTypes) {
-			return res.status(404).json({ error: 'Room Type not found' });
-		}
-		res.json(roomTypes);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
-
-// Update a room
-router.put('/room-types/id/:id', async (req, res) => {
-	const id = req.params.id;
+// Create a new Room type
+router.post('/room', async (req, res) => {
 	const room = req.body;
 	try {
-		const roomType = await RoomTypes.update(room, { where: { id } });
-		if (!roomType) {
+		const newRoom = await Room.create(room);
+		if (!newRoom) {
+			return res.status(404).json({ error: 'Room Type not found' });
+		}
+		res.json(newRoom);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
+// Get all Room types
+router.get('/room', async (req, res) => {
+	try {
+		const room = await Room.findAll();
+		res.json(room);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
+// Get Room type by registrationID
+router.get('/room/registration/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	try {
+		const room = await Room.findAll({ where: { registrationID } });
+		if (!room) {
+			return res.status(404).json({ error: 'Room Type not found' });
+		}
+		res.json(room);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
+// Update a Room
+router.put('/room/id/:id', async (req, res) => {
+	const id = req.params.id;
+	const roomData = req.body;
+	try {
+		const room = await Room.update(roomData, { where: { id } });
+		if (!room) {
 			return res.status(404).json({ error: 'Room not found' });
 		}
 		res.json({ message: 'Room updated' });
@@ -60,11 +60,11 @@ router.put('/room-types/id/:id', async (req, res) => {
 	}
 });
 
-// Delete a room
-router.delete('/room-types/id/:id', async (req, res) => {
+// Delete a Room
+router.delete('/room/id/:id', async (req, res) => {
 	const id = req.params.id;
 	try {
-		const deletedCount = await RoomTypes.destroy({ where: { id } });
+		const deletedCount = await Room.destroy({ where: { id } });
 		if (!deletedCount) {
 			return res.status(404).json({ error: 'Room not found' });
 		}
@@ -75,11 +75,11 @@ router.delete('/room-types/id/:id', async (req, res) => {
 	}
 });
 
-// Delete room by registrationID
-router.delete('/room-types/registration/:registrationID', async (req, res) => {
+// Delete Room by registrationID
+router.delete('/room/registration/:registrationID', async (req, res) => {
 	const registrationID = req.params.registrationID;
 	try {
-		const deletedCount = await RoomTypes.destroy({ where: { registrationID } });
+		const deletedCount = await Room.destroy({ where: { registrationID } });
 		if (!deletedCount) {
 			return res.status(404).json({ error: 'Room not found' });
 		}
@@ -90,28 +90,14 @@ router.delete('/room-types/registration/:registrationID', async (req, res) => {
 	}
 });
 
-// Get all rooms
-router.get('/rooms', async (req, res) => {
+// Get all Room
+router.get('/room', async (req, res) => {
 	try {
-		const rooms = await Rooms.findAll();
-		if (!rooms || rooms.length === 0) {
-			return res.status(404).json({ error: 'Rooms not found' });
+		const room = await Room.findAll();
+		if (!room || Room.length === 0) {
+			return res.status(404).json({ error: 'Room not found' });
 		}
-		res.json(rooms);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
-
-// Get all bookings
-router.get('/bookings', async (req, res) => {
-	try {
-		const bookings = await Booking.findAll();
-		if (!bookings || bookings.length === 0) {
-			return res.status(404).json({ error: 'Bookings not found' });
-		}
-		res.json(bookings);
+		res.json(room);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Internal Server Error' });
@@ -239,21 +225,6 @@ router.delete('/registrations/id/:id', async (req, res) => {
 	}
 });
 
-// Create a new room
-router.post('/rooms', async (req, res) => {
-	const room = req.body;
-	try {
-		const newRoom = await Rooms.create(room);
-		if (!newRoom) {
-			return res.status(404).json({ error: 'Room not found' });
-		}
-		res.json(newRoom);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
-
 // Create a new booking
 router.post('/bookings', async (req, res) => {
 	const bookingData = req.body;
@@ -268,4 +239,19 @@ router.post('/bookings', async (req, res) => {
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 });
+
+// Get all bookings
+router.get('/bookings', async (req, res) => {
+	try {
+		const bookings = await Booking.findAll();
+		if (!bookings || bookings.length === 0) {
+			return res.status(404).json({ error: 'Bookings not found' });
+		}
+		res.json(bookings);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
 module.exports = router;

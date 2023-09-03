@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { RoomInfo, HotelInfo } from '../Posts';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
-import { BiBath, BiBed, BiEdit, BiTime, BiTv } from 'react-icons/bi';
+import { BiBath, BiBed, BiTime, BiTv } from 'react-icons/bi';
 import { Button } from './ui/button';
 import { Modal } from 'react-responsive-modal';
+import BookForm from './BookForm';
 import RoomFormUpdate from './RoomFormUpdate';
 import AddRoomButton from './AddRoomButton';
+import { modalCustomStyles } from '@/themes';
+import { Label } from './ui/label';
 
 const Rooms = () => {
 	const registrationID = HotelInfo();
@@ -29,66 +32,55 @@ const Rooms = () => {
 			{fetchedRoomInfo.map((room, index) => {
 				return (
 					<Card
-						className={`text-lg h-fit 2xl:hover:scale-[102%] transition-all items-center justify-center ${
+						className={`text-lg h-[338px] 2xl:hover:scale-[102%] transition-all items-center justify-between flex flex-col p-2 ${
 							index > 5 ? 'w-56' : 'w-full'
 						}`}
 						key={index}
 					>
-						<CardHeader>
-							<CardTitle className='flex w-full justify-between items-start bg-none'>
-								{room.name}
-								<Button
-									onClick={() => onOpenModal(room)}
-									className=' h-fit m-0 p-0 bg-transparent shadow-none 2xl:hover:scale-[105%] 2xl:hover:opacity-70 hover:bg-transparent transition-all self-start'
-								>
-									<BiEdit className=' text-black' />
-								</Button>
-							</CardTitle>
-							<CardDescription>{room.roomType} Room</CardDescription>
-							<Separator />
-							<CardContent className='p-0 text-black-600 flex flex-col w-full items-start gap-2 justify-start'>
-								<span className='flex items-center gap-2'>
+						<div className='w-full h-full justify-between'>
+							<CardHeader>
+								<CardTitle className='flex w-full justify-between items-start bg-none'>
+									{room.name}
+									<RoomFormUpdate room={room} />
+								</CardTitle>
+								<CardDescription>{room.roomType} Room</CardDescription>
+								<Separator />
+							</CardHeader>
+							<CardContent className='text-black-600 flex flex-col h-fit items-start gap-2'>
+								<Label className='flex items-center gap-2 text-base'>
 									<BiBed />
 									{room.bedNumber}
-								</span>
-								<span className='flex items-center gap-2'>
+								</Label>
+								<Label className='flex items-center gap-2 text-base'>
 									<BiTv />
 									{room.tvInclusion}
-								</span>
-								<span className='flex items-center gap-2'>
+								</Label>
+								<Label className='flex items-center gap-2 text-base'>
 									<BiBath />
 									{room.crInclusion}
-								</span>
-								<span className='flex items-center gap-2 justify-right'>
+								</Label>
+								<Label className='flex items-center gap-2 justify-right text-base'>
 									<BiTime className='' />
 									&nbsp;{'12H'}
-									<span className='font-thin'> | </span>₱{room.price12h}
-								</span>
-								<span className='flex items-center gap-2 justify-right'>
+									<Label className='font-thin'> | </Label>₱{room.price12h}
+								</Label>
+								<Label className='flex items-center gap-2 justify-right text-base'>
 									<BiTime /> {'24H'}
-									<span className='font-thin'> | </span>₱{room.price24h}
-								</span>
+									<Label className='font-thin'> | </Label>₱{room.price24h}
+								</Label>
 							</CardContent>
-						</CardHeader>
-						<CardFooter className='flex sm:flex-row flex-col gap-4 justify-between'>
-							<Button className='w-full'>Book</Button>
+						</div>
+						<CardFooter className='flex sm:flex-row flex-col w-full text-base'>
+							<Button className='w-full' onClick={() => onOpenModal(room)}>
+								Book
+							</Button>
 						</CardFooter>
 					</Card>
 				);
 			})}
 			<AddRoomButton />
-			<Modal
-				open={open}
-				onClose={onCloseModal}
-				center
-				styles={{
-					modal: {
-						backgroundColor: 'white',
-						borderRadius: '16px',
-					},
-				}}
-			>
-				<RoomFormUpdate room={selectedRoom} />
+			<Modal open={open} onClose={onCloseModal} center styles={modalCustomStyles}>
+				<BookForm room={selectedRoom} />
 			</Modal>
 		</div>
 	);
