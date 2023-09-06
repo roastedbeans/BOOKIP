@@ -32,7 +32,7 @@ const Rooms = () => {
 			{fetchedRoomInfo.map((room, index) => {
 				return (
 					<Card
-						className={`text-lg h-[338px] 2xl:hover:scale-[102%] transition-all items-center justify-between flex flex-col p-2 ${
+						className={`text-lg h-[346px] 2xl:hover:scale-[102%] transition-all items-center justify-between flex flex-col p-2 ${
 							index > 5 ? 'w-56' : 'w-full'
 						}`}
 						key={index}

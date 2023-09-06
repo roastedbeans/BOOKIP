@@ -11,6 +11,7 @@ export const customStyles = {
 		outline: 'none',
 		ring: 'none',
 		boxShadow: '0 0.5px 1.5px 0.05px #E7E5E4',
+		cursor: 'pointer',
 		//add shadow thin no focus
 	}),
 };

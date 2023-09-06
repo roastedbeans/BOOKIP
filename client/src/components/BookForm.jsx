@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from './ui/card';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Calendar } from './ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
@@ -12,27 +12,65 @@ import Select from 'react-select';
 import axios from 'axios';
 import { bookingForm, hoursOptions } from '@/formValue';
 import { themes, customStyles } from '@/themes';
+import { date } from 'yup';
 
 const BookForm = (room) => {
 	const [bookInfo, setBookInfo] = useState(bookingForm);
+	const [selectedHours, setSelectedHours] = useState();
 	const [dateIn, setInDate] = useState();
 	const [dateOut, setOutDate] = useState();
-	const [selectedHours, setSelectedHours] = useState(hoursOptions[0]);
-
-	const onHandleHours = (e) => {
-		setBookInfo({ ...bookInfo, hours: e.value });
-		setSelectedHours(e);
-		setOutDate(null);
-	};
+	const [roomRate, setRoomRate] = useState(0);
 
 	const onHandleChange = (e) => {
-		setBookInfo({ ...bookInfo, [e.target.id]: e.target.value, roomID: room.id });
+		const currentTime = new Date();
+		if (e.target?.id === 'hours') {
+			setSelectedHours(e.target?.value);
+			if (e.target?.value === '24 hours') {
+				setInDate(new Date());
+				setOutDate(new Date(currentTime.setHours(currentTime.getHours() + 24)));
+			} else {
+				setInDate(new Date());
+				setOutDate(new Date(currentTime.setHours(currentTime.getHours() + 12)));
+			}
+		}
+		if (e.target?.id === 'checkInDate' && e.target.value != null) {
+			e.target.value.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
+			setInDate(new Date(e.target?.value));
+			if (selectedHours === '12 hours') {
+				e.target.value.setHours(currentTime.getHours() + 12, currentTime.getMinutes(), currentTime.getSeconds());
+				setOutDate(new Date(e.target.value));
+			}
+		}
+
+		if (e.target?.id === 'checkOutDate' && e.target.value != null) {
+			e.target.value.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
+			setOutDate(new Date(e.target.value));
+		}
+
+		setBookInfo({
+			...bookInfo,
+			[e.target?.id]: e.target?.value,
+			roomID: room.room.id,
+		});
 	};
+
+	useEffect(() => {
+		if (selectedHours === '12 hours') {
+			setRoomRate(room.room.price12h);
+		} else if (selectedHours === '24 hours') {
+			setRoomRate(room.room.price24h * (dateOut.getDate() - dateIn.getDate()));
+		}
+		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut });
+	}, [dateIn, dateOut, selectedHours]);
+
+	useEffect(() => {
+		setBookInfo({ ...bookInfo, price: roomRate });
+	}, [roomRate]);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post('http://localhost:5000/posts/booking', bookInfo).then((response) => {
+			await axios.post('http://localhost:5000/posts/bookings', bookInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -41,9 +79,9 @@ const BookForm = (room) => {
 		setBookInfo(bookingForm);
 		window.location.reload();
 	};
-
+	console.log(bookInfo);
 	return (
-		<Card className='w-fit border-0 shadow-none'>
+		<Card className='w-full border-0 shadow-none'>
 			<CardHeader>
 				<CardTitle>Room Booking</CardTitle>
 				<CardDescription>Please fill-up customer information</CardDescription>
@@ -54,6 +92,7 @@ const BookForm = (room) => {
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='customerName'>Customer Name</Label>
 							<Input
+								autoComplete='off'
 								id='customerName'
 								name='customerName'
 								type='text'
@@ -66,6 +105,7 @@ const BookForm = (room) => {
 						<div className='flex flex-col space-y-1.5'>
 							<Label htmlFor='customerPhone'>Contact Number</Label>
 							<Input
+								autoComplete='off'
 								id='customerPhone'
 								name='customerPhone'
 								type='number'
@@ -75,18 +115,18 @@ const BookForm = (room) => {
 								onChange={onHandleChange}
 							/>
 						</div>
-						<div className='flex flex-col space-y-1.5 text-sm shadow-sm'>
+						<div className='flex flex-col space-y-1.5 text-sm'>
 							<Label htmlFor='hours'>Number of Hours</Label>
 							<Select
+								className='w-full'
 								isSearchable={false}
 								styles={customStyles}
 								theme={themes}
 								id='hours'
 								options={hoursOptions}
-								onChange={onHandleHours}
-								defaultValue={hoursOptions[0]}
-								value={selectedHours}
-								placeholder='Select CR inclusion'
+								onChange={(e) => onHandleChange({ target: { id: 'hours', value: e.value } })}
+								value={selectedHours?.value}
+								placeholder='Select hours'
 								required
 							></Select>
 						</div>
@@ -98,21 +138,29 @@ const BookForm = (room) => {
 										<Button
 											variant={'outline'}
 											className={cn(
-												'justify-start text-left font-normal',
+												'justify-start text-left font-normal w-48',
 												!dateIn && 'text-muted-foreground',
-												selectedHours.value === '12 hours' ? 'w-full' : 'sm:w-48'
+												selectedHours === '24 hours' ? 'sm:w-48' : 'w-full'
 											)}
 										>
 											<CalendarIcon className='mr-2 h-4 w-4' />
-											{dateIn ? format(dateIn, 'yyyy-MM-dd') : <span>Pick a date</span>}
+											{dateIn ? format(dateIn, 'MM-dd-yyyy') : <span>Pick a date</span>}
 										</Button>
 									</PopoverTrigger>
 									<PopoverContent className='w-full p-0' align='center'>
-										<Calendar mode='single' selected={dateIn} onSelect={setInDate} initialFocus />
+										<Calendar
+											disabled={selectedHours == null}
+											id='checkInDate'
+											name='checkInDate'
+											mode='single'
+											selected={dateIn}
+											onSelect={(e) => onHandleChange({ target: { id: 'checkInDate', value: e } })}
+											initialFocus
+										/>
 									</PopoverContent>
 								</Popover>
 							</div>
-							{selectedHours.value === '24 hours' && (
+							{selectedHours === '24 hours' && (
 								<div className='flex flex-col space-y-1.5 w-full'>
 									<Label htmlFor='street'>Check-out Date</Label>
 									<Popover>
@@ -120,20 +168,37 @@ const BookForm = (room) => {
 											<Button
 												variant={'outline'}
 												className={cn(
-													' justify-start text-left font-normal sm:w-48',
+													' justify-start text-left font-normal sm:w-48 w-full',
 													!dateOut && 'text-muted-foreground'
 												)}
 											>
 												<CalendarIcon className='mr-2 h-4 w-4' />
-												{dateOut ? format(dateOut, 'yyyy-MM-dd') : <span>Pick a date</span>}
+												{dateOut ? format(dateOut, 'MM-dd-yyyy') : <span>Pick a date</span>}
 											</Button>
 										</PopoverTrigger>
 										<PopoverContent className='w-full p-0' align='center'>
-											<Calendar mode='single' selected={dateOut} onSelect={setOutDate} initialFocus />
+											<Calendar
+												id='checkOutDate'
+												name='checkOutDate'
+												mode='single'
+												selected={dateOut}
+												onSelect={(e) => onHandleChange({ target: { id: 'checkOutDate', value: e } })}
+												initialFocus
+											/>
 										</PopoverContent>
 									</Popover>
 								</div>
 							)}
+						</div>
+						<div className='flex flex-col space-y-1.5 text-sm'>
+							<Label htmlFor='hours w-full'>Total Price</Label>
+							<Input
+								disabled={true}
+								className='disabled:opacity-100 disabled:cursor-default text-end'
+								id='price'
+								name='customerName'
+								value={'Php ' + roomRate}
+							/>
 						</div>
 					</div>
 					<CardFooter className='flex justify-end m-0 p-0 mt-4'>

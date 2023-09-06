@@ -24,13 +24,13 @@ export const registerForm = {
 };
 
 export const bookingForm = {
-	id: '',
 	roomID: '',
 	customerName: '',
 	customerPhone: '',
 	hours: '',
-	checkInDate: '',
-	checkOutDate: '',
+	checkInDate: new Date(),
+	checkOutDate: new Date(),
+	price: '',
 	status: false,
 };
 
