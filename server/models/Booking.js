@@ -1,8 +1,12 @@
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = function(sequelize, DataTypes) {
 	const Booking = sequelize.define('Booking', {
 		id: {
+			defaultValue: () => uuidv4(),
 			type: DataTypes.STRING,
 			primaryKey: true,
+			allowNull: false,
 		},
 		roomID: {
 			type: DataTypes.STRING,
@@ -26,7 +30,11 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		checkOutDate: {
 			type: DataTypes.DATE,
-			allowNull: true,
+			allowNull: false,
+		},
+		price: {
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
 		status: {
 			defaultValue: false,

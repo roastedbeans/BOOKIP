@@ -10,6 +10,7 @@ export default defineConfig({
 	},
 	plugins: [react()],
 	resolve: {
+		mainFields: [],
 		alias: {
 			util: 'util/',
 			'@': path.resolve(__dirname, './src'),
