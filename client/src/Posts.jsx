@@ -64,3 +64,27 @@ export function RoomInfo(registrationID) {
 
 	return roomInfo;
 }
+
+export function BookingInfo() {
+	const [bookingInfo, setBookingInfo] = useState([]);
+	useEffect(() => {
+		axios.get(`http://localhost:5000/posts/bookings/`).then((response) => {
+			setBookingInfo(response.data);
+		});
+	}, []);
+
+	return bookingInfo;
+}
+
+export function BookingInfoByID(roomID) {
+	const [bookingInfo, setBookingInfo] = useState([]);
+	useEffect(() => {
+		axios.get(`http://localhost:5000/posts/bookings/room/${roomID}`).then((response) => {
+			//filter by the status of the booking
+			const filteredData = response.data.filter((booking) => booking.status === true)[0];
+			setBookingInfo(filteredData);
+		});
+	}, [roomID]);
+
+	return bookingInfo;
+}

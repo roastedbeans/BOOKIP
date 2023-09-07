@@ -22,3 +22,8 @@ export const modalCustomStyles = {
 		borderRadius: '16px',
 	},
 };
+
+export const flipCardStyles = {
+	front: { background: 'primaryColor', color: 'white', borderRadius: 20 },
+	back: { background: 'white', color: 'primaryColor', borderRadius: 20 },
+};
