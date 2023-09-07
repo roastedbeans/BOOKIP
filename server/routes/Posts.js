@@ -254,4 +254,35 @@ router.get('/bookings', async (req, res) => {
 	}
 });
 
+//Get booking by roomID
+router.get('/bookings/room/:roomID', async (req, res) => {
+	const roomID = req.params.roomID;
+	try {
+		const booking = await Booking.findAll({ where: { roomID } });
+		if (!booking) {
+			return res.status(404).json({ error: 'Booking not found' });
+		}
+		res.json(booking);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
+//Update booking by roomID
+router.put('/bookings/room/:roomID', async (req, res) => {
+	const roomID = req.params.roomID;
+	const bookingData = req.body;
+	try {
+		const booking = await Booking.update(bookingData, { where: { roomID } });
+		if (!booking) {
+			return res.status(404).json({ error: 'Booking not found' });
+		}
+		res.json({ message: 'Booking updated' });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
 module.exports = router;

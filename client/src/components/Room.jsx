@@ -1,80 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import { RoomInfo, HotelInfo } from '../Posts';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { Separator } from './ui/separator';
-import { BiBath, BiBed, BiTime, BiTv } from 'react-icons/bi';
+import { Card, CardFooter } from './ui/card';
 import { Button } from './ui/button';
 import { Modal } from 'react-responsive-modal';
 import BookForm from './BookForm';
-import RoomFormUpdate from './RoomFormUpdate';
 import AddRoomButton from './AddRoomButton';
 import { modalCustomStyles } from '@/themes';
-import { Label } from './ui/label';
+import RoomContent from './RoomContent';
+import RoomBooked from './RoomBooked';
+import axios from 'axios';
 
 const Rooms = () => {
 	const registrationID = HotelInfo();
-	const roomInfo = RoomInfo(registrationID.id);
-	const [fetchedRoomInfo, setFetchedRoomInfo] = useState([]);
+	const fetchedRoomInfo = RoomInfo(registrationID.id);
+
 	const [selectedRoom, setSelectedRoom] = useState([]);
-	const [open, setOpen] = React.useState(false);
-	const onCloseModal = () => setOpen(false);
+	const [open, setOpen] = useState(false);
+
+	const onCloseModal = () => {
+		setSelectedRoom([]);
+		setOpen(false);
+	};
+
 	const onOpenModal = (room) => {
 		setSelectedRoom(room);
 		setOpen(true);
 	};
 
-	useEffect(() => {
-		setFetchedRoomInfo(roomInfo);
-	}, [roomInfo]);
+	const onBookingDone = async (room) => {
+		try {
+			await axios.put(`http://localhost:5000/posts/bookings/room/${room.id}`, { status: false });
+			await axios.put(`http://localhost:5000/posts/room/id/${room.id}`, { status: false });
+		} catch (err) {
+			console.log(err);
+		}
+
+		window.location.reload();
+	};
 
 	return (
-		<div className='grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 justify-evenly items-center content-center w-full gap-4'>
+		<div className='flex flex-wrap flex-row justify-start w-full h-full gap-4'>
 			{fetchedRoomInfo.map((room, index) => {
 				return (
 					<Card
-						className={`text-lg h-[346px] 2xl:hover:scale-[102%] transition-all items-center justify-between flex flex-col p-2 ${
-							index > 5 ? 'w-56' : 'w-full'
-						}`}
 						key={index}
+						className={`sm:w-60 w-full text-lg h-[346px] 2xl:hover:scale-[102%] transition-all items-center justify-center flex flex-col p-1
+							${room.status ? 'bg-primaryColor text-white' : 'bg-white text-darkColor'}`}
 					>
-						<div className='w-full h-full justify-between'>
-							<CardHeader>
-								<CardTitle className='flex w-full justify-between items-start bg-none'>
-									{room.name}
-									<RoomFormUpdate room={room} />
-								</CardTitle>
-								<CardDescription>{room.roomType} Room</CardDescription>
-								<Separator />
-							</CardHeader>
-							<CardContent className='text-black-600 flex flex-col h-fit items-start gap-2'>
-								<Label className='flex items-center gap-2 text-base'>
-									<BiBed />
-									{room.bedNumber}
-								</Label>
-								<Label className='flex items-center gap-2 text-base'>
-									<BiTv />
-									{room.tvInclusion}
-								</Label>
-								<Label className='flex items-center gap-2 text-base'>
-									<BiBath />
-									{room.crInclusion}
-								</Label>
-								<Label className='flex items-center gap-2 justify-right text-base'>
-									<BiTime className='' />
-									&nbsp;{'12H'}
-									<Label className='font-thin'> | </Label>₱{room.price12h}
-								</Label>
-								<Label className='flex items-center gap-2 justify-right text-base'>
-									<BiTime /> {'24H'}
-									<Label className='font-thin'> | </Label>₱{room.price24h}
-								</Label>
-							</CardContent>
-						</div>
-						<CardFooter className='flex sm:flex-row flex-col w-full text-base'>
-							<Button className='w-full' onClick={() => onOpenModal(room)}>
-								Book
-							</Button>
-						</CardFooter>
+						{room.status ? (
+							<>
+								<RoomBooked room={room} />
+								<CardFooter className='flex sm:flex-row flex-col h-fit w-full text-base'>
+									<Button className='w-full' onClick={() => onBookingDone(room)}>
+										Done
+									</Button>
+								</CardFooter>
+							</>
+						) : (
+							<>
+								<RoomContent room={room} />
+								<CardFooter className='flex sm:flex-row flex-col h-fit w-full text-base'>
+									<Button className='w-full' onClick={() => onOpenModal(room)}>
+										Book
+									</Button>
+								</CardFooter>
+							</>
+						)}
 					</Card>
 				);
 			})}

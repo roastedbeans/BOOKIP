@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from './ui/card';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Calendar } from './ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
@@ -12,7 +12,6 @@ import Select from 'react-select';
 import axios from 'axios';
 import { bookingForm, hoursOptions } from '@/formValue';
 import { themes, customStyles } from '@/themes';
-import { date } from 'yup';
 
 const BookForm = (room) => {
 	const [bookInfo, setBookInfo] = useState(bookingForm);
@@ -60,7 +59,7 @@ const BookForm = (room) => {
 		} else if (selectedHours === '24 hours') {
 			setRoomRate(room.room.price24h * (dateOut.getDate() - dateIn.getDate()));
 		}
-		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut });
+		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut, status: true });
 	}, [dateIn, dateOut, selectedHours]);
 
 	useEffect(() => {
@@ -73,13 +72,14 @@ const BookForm = (room) => {
 			await axios.post('http://localhost:5000/posts/bookings', bookInfo).then((response) => {
 				console.log(response.data);
 			});
+			await axios.put(`http://localhost:5000/posts/room/id/${bookInfo.roomID}`, { status: true });
 		} catch (err) {
 			console.log(err);
 		}
 		setBookInfo(bookingForm);
 		window.location.reload();
 	};
-	console.log(bookInfo);
+	console.log(bookInfo.roomID);
 	return (
 		<Card className='w-full border-0 shadow-none'>
 			<CardHeader>
