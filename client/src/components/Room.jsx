@@ -39,7 +39,7 @@ const Rooms = () => {
 	};
 
 	return (
-		<div className='flex flex-wrap flex-row justify-start w-full h-full gap-4'>
+		<div className=' inline-flex flex-wrap flex-row justify-center w-full h-full gap-4 '>
 			{fetchedRoomInfo.map((room, index) => {
 				return (
 					<Card
@@ -70,6 +70,10 @@ const Rooms = () => {
 				);
 			})}
 			<AddRoomButton />
+			<div className='w-60'></div>
+			<div className='w-60'></div>
+			<div className='w-60'></div>
+			<div className='w-60'></div>
 			<Modal open={open} onClose={onCloseModal} center styles={modalCustomStyles}>
 				<BookForm room={selectedRoom} />
 			</Modal>

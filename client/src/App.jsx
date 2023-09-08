@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ClerkProvider, SignedIn, SignedOut, ClerkLoading, ClerkLoaded } from '@clerk/clerk-react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate, Outlet, Navigate } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import axios from 'axios';
 import Dashboard from './Pages/Dashboard';
 import HeroPage from './Pages/HeroPage';
-import Rooms from './Pages/Rooms';
 import LoadingPage from './components/LoadingPage';
+import HistoryPage from './Pages/HistoryPage';
+import IncomePage from './Pages/IncomePage';
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Publishable Key');
@@ -28,7 +29,7 @@ function ClerkProviderWithRoutes() {
 			</ClerkLoading>
 			<Routes>
 				<Route
-					path='/*'
+					path='/'
 					element={
 						<>
 							<ClerkLoaded>
@@ -36,7 +37,7 @@ function ClerkProviderWithRoutes() {
 									<Dashboard />
 								</SignedIn>
 								<SignedOut>
-									{toHeroPage}
+									<Navigate to='/' />
 									<HeroPage />
 								</SignedOut>
 							</ClerkLoaded>
@@ -53,7 +54,7 @@ function ClerkProviderWithRoutes() {
 									<Dashboard />
 								</SignedIn>
 								<SignedOut>
-									{toHeroPage}
+									<Navigate to='/' />
 									<HeroPage />
 								</SignedOut>
 							</ClerkLoaded>
@@ -66,13 +67,37 @@ function ClerkProviderWithRoutes() {
 						<>
 							<ClerkLoaded>
 								<SignedIn>
-									<Rooms />
+									<HistoryPage />
 								</SignedIn>
 								<SignedOut>
-									{toHeroPage}
+									<Navigate to='/' />
 									<HeroPage />
 								</SignedOut>
 							</ClerkLoaded>
+						</>
+					}
+				/>
+				<Route
+					path='/income'
+					element={
+						<>
+							<ClerkLoaded>
+								<SignedIn>
+									<IncomePage />
+								</SignedIn>
+								<SignedOut>
+									<Navigate to='/' />
+									<HeroPage />
+								</SignedOut>
+							</ClerkLoaded>
+						</>
+					}
+				/>
+				<Route
+					path='*'
+					element={
+						<>
+							<Navigate to='/' />
 						</>
 					}
 				/>

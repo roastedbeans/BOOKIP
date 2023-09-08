@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Separator } from './ui/separator';
 import { Card } from './ui/card';
-import { HotelInfo } from '../Posts';
+import { HotelInfo } from '@/Posts';
 import HotelFormUpdate from './RegistrationFormUpdate';
 
 const HotelDisplay = () => {

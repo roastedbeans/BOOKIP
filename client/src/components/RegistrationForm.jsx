@@ -48,7 +48,7 @@ export default function HotelForm() {
 								name='hotelName'
 								type='text'
 								placeholder='Enter hotel name'
-								value={hotelInfo.hotelName}
+								value={hotelInfo?.hotelName}
 								required
 								onChange={onHandleChange}
 							/>
@@ -60,7 +60,7 @@ export default function HotelForm() {
 								name='contactNumber'
 								type='number'
 								placeholder='Enter contact number'
-								value={hotelInfo.contactNumber}
+								value={hotelInfo?.contactNumber}
 								required
 								onChange={onHandleChange}
 							/>
@@ -72,7 +72,7 @@ export default function HotelForm() {
 								name='street'
 								type='text'
 								placeholder='Enter contact number'
-								value={hotelInfo.street}
+								value={hotelInfo?.street}
 								required
 								onChange={onHandleChange}
 							/>
@@ -84,7 +84,7 @@ export default function HotelForm() {
 									id='city'
 									name='city'
 									onChange={onHandleChange}
-									value={hotelInfo.city}
+									value={hotelInfo?.city}
 									type='text'
 									placeholder='Enter city'
 									required
@@ -96,7 +96,7 @@ export default function HotelForm() {
 									id='province'
 									name='province'
 									onChange={onHandleChange}
-									value={hotelInfo.province}
+									value={hotelInfo?.province}
 									type='text'
 									placeholder='Enter province'
 									required
@@ -110,7 +110,7 @@ export default function HotelForm() {
 									id='country'
 									name='country'
 									onChange={onHandleChange}
-									value={hotelInfo.country}
+									value={hotelInfo?.country}
 									type='text'
 									placeholder='Enter country'
 									required
@@ -122,7 +122,7 @@ export default function HotelForm() {
 									id='zipCode'
 									name='zipCode'
 									onChange={onHandleChange}
-									value={hotelInfo.zipCode}
+									value={hotelInfo?.zipCode}
 									type='number'
 									placeholder='Enter zip code'
 									required

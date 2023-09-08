@@ -25,6 +25,7 @@ export const registerForm = {
 
 export const bookingForm = {
 	roomID: '',
+	roomName: '',
 	customerName: '',
 	customerPhone: '',
 	hours: '',

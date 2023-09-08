@@ -59,7 +59,7 @@ const BookForm = (room) => {
 		} else if (selectedHours === '24 hours') {
 			setRoomRate(room.room.price24h * (dateOut.getDate() - dateIn.getDate()));
 		}
-		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut, status: true });
+		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut, status: true, roomName: room.room.name });
 	}, [dateIn, dateOut, selectedHours]);
 
 	useEffect(() => {
