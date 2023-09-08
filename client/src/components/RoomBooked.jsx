@@ -2,17 +2,16 @@ import React from 'react';
 import { CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
 import { BiCalendar, BiMoney, BiPhone } from 'react-icons/bi';
-import { BookingInfoByID } from '../Posts';
+import { BookingInfoByID } from '@/Posts';
 import FlipCountdown from '@rumess/react-flip-countdown';
 import { Label } from './ui/label';
-import axios from 'axios';
 import { AvatarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
+import axios from 'axios';
 
 const RoomBooked = (room) => {
 	room = room.room;
 	const bookingInfo = BookingInfoByID(room.id);
-	// const [checkInTime, setCheckInTime] = useState(new Date());
 	let inTime = format(new Date(bookingInfo?.checkInDate || new Date()), 'PP');
 	const handleOnTimeUp = async () => {
 		try {
@@ -36,7 +35,7 @@ const RoomBooked = (room) => {
 				<Separator />
 			</CardHeader>
 			<CardContent className='text-black-600 flex flex-col items-start justify-center h-fit gap-1'>
-				<div className='flex items-center w-full h-fit'>
+				<div className='flex items-center w-full h-full'>
 					{bookingInfo?.status && (
 						<FlipCountdown
 							titlePosition='bottom'

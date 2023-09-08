@@ -1,10 +1,8 @@
 /* eslint-disable no-irregular-whitespace */
 import React, { useState, useRef } from 'react';
 import { SignIn, SignUp } from '@clerk/clerk-react';
-import BookipLogo1 from '../assets/Bookip-logo1.png';
-import BookipTrans1 from '../assets/Bookip-transparent1.png';
-import BookipTrans2 from '../assets/Bookip-transparent2.png';
-import background from '../assets/background.svg';
+import BookipTrans2 from '@/assets/Bookip-transparent2.png';
+import background from '@/assets/background.svg';
 
 function HeroPage() {
 	const [showSignUp, setShowSignUp] = useState(false);
@@ -19,7 +17,7 @@ function HeroPage() {
 
 	return (
 		<div className={`w-full h-screen overflow-x-hidden m-0 p-0`}>
-			<img src={background} className=' absolute object-cover object-center -z-10 h-screen w-full' />
+			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' />
 			{/* Code block starts */}
 			<div
 				ref={containerRef}
@@ -33,12 +31,12 @@ function HeroPage() {
 					<img
 						className='mr-2 lg:mr-12 mt-2 lg:mt-12 absolute right-0 top-0'
 						src='https://tuk-cdn.s3.amazonaws.com/can-uploader/center_aligned_with_image-svg2.svg'
-						alt='bg'
+						alt='bookip-corner-bg'
 					/>
 					<img
 						className='ml-2 lg:ml-12 mb-2 lg:mb-12 absolute bottom-0 left-0'
 						src='https://tuk-cdn.s3.amazonaws.com/can-uploader/center_aligned_with_image-svg3.svg'
-						alt='bg'
+						alt='bookip-corner-bg'
 					/>
 
 					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-0 gap-10 justify-center items-center 2xl:px-20'>
@@ -62,7 +60,7 @@ function HeroPage() {
 									showSignUp || showSignIn ? '2xl:-translate-x-[100px]' : '2xl:translate-x-[50%]'
 								}`}
 							>
-								<img src={BookipTrans2} className='2xl:h-24 xl:h-20 md:h-16 sm:h-12 h-10 w-fit' />
+								<img src={BookipTrans2} alt='bookip-logo' className='2xl:h-24 xl:h-20 md:h-16 sm:h-12 h-10 w-fit' />
 								<h1 className='font-normal xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-2xl text-2xl text-white '>
 									B<span className='font-bold '>OO</span>KIP
 								</h1>
@@ -100,14 +98,14 @@ function HeroPage() {
 									showSignUp || !showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignUp path='/' routing='path' />
+								<SignUp path='/' routing='path' afterSignUpUrl='/dashboard' />
 							</div>
 							<div
 								className={`2xl:translate-x-40 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
 									!showSignUp || showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignIn path='/' routing='path' />
+								<SignIn path='/' routing='path' afterSignInUrl='/dashboard' />
 							</div>
 						</div>
 					</div>

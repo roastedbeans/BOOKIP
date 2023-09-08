@@ -1,7 +1,6 @@
 'use client';
 
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	Sheet,
 	SheetContent,
@@ -19,14 +18,14 @@ import {
 	crInclusionOptions,
 	tvInclusionOptions,
 	roomTypeOptions,
-} from '../formValue';
+} from '@/formValue';
+import { themes, customStyles } from '@/themes';
 import { BiEdit } from 'react-icons/bi';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { themes, customStyles } from '../themes';
+import { HotelInfo } from '@/Posts';
 import axios from 'axios';
-import { HotelInfo } from '../Posts';
 
 export default function RoomFormUpdate(room) {
 	const [roomInfo, setRoomInfo] = useState(room.room);

@@ -11,13 +11,13 @@ import {
 	crInclusionOptions,
 	tvInclusionOptions,
 	roomTypeOptions,
-} from '../formValue';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
-import { themes, customStyles } from '../themes';
+} from '@/formValue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { themes, customStyles } from '@/themes';
+import { HotelInfo } from '@/Posts';
 import axios from 'axios';
-import { HotelInfo } from '../Posts';
 
 export default function RoomForm() {
 	const [selectedRoomType, setSelectedRoomType] = useState('');
@@ -50,6 +50,7 @@ export default function RoomForm() {
 	};
 
 	const onSubmit = (e) => {
+		e.preventDefault();
 		try {
 			axios.post('http://localhost:5000/posts/room', roomInfo).then((response) => {
 				console.log(response.data);

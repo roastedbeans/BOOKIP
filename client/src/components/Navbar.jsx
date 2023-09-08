@@ -10,7 +10,7 @@ import { Button } from '../components/ui/button';
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard', current: false },
 	{ name: 'History', href: '/history', current: false },
-	{ name: 'Income', href: '/income', current: false },
+	{ name: 'Income Statement', href: '/income', current: false },
 ];
 
 function classNames(...classes) {
@@ -39,7 +39,7 @@ export default function Navbar() {
 		<div className='mb-16'>
 			<Disclosure
 				as='nav'
-				className={` drop-shadow-2xl top-0 z-10 transition-all fixed w-full bg-gray-950 ${
+				className={` drop-shadow-2xl top-0 z-10 transition-all fixed w-full bg-gradient-to-tr from-gray-900 to-gray-950 ${
 					navbar ? 'opacity-80' : 'opacity-100'
 				}`}
 			>
@@ -59,12 +59,12 @@ export default function Navbar() {
 										)}
 									</Disclosure.Button>
 								</div>
-								<div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
+								<div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start '>
 									<div className='flex flex-shrink-0 items-center'>
 										<img className='h-10 w-auto' src={logo} alt='Your Company' />
 									</div>
 									<div className='hidden sm:ml-6 sm:block'>
-										<div className='flex space-x-4'>
+										<div className='flex space-x-4 '>
 											{navigation.map((item) => (
 												<a
 													key={item.name}
@@ -102,7 +102,7 @@ export default function Navbar() {
 						</div>
 
 						<Disclosure.Panel className='sm:hidden'>
-							<div className='space-y-1 px-2 pb-3 pt-2'>
+							<div className='space-y-1 px-2 pb-6 pt-2'>
 								{navigation.map((item) => (
 									<Disclosure.Button
 										key={item.name}

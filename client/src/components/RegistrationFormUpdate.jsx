@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sheet';
 import { BiEdit } from 'react-icons/bi';
 import { useUser } from '@clerk/clerk-react';
-import { registerForm } from '../formValue';
+import { registerForm } from '@/formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
