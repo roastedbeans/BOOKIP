@@ -44,8 +44,12 @@ const Rooms = () => {
 				return (
 					<Card
 						key={index}
-						className={`sm:w-60 w-full text-lg h-[346px] 2xl:hover:scale-[102%] transition-all items-center justify-center flex flex-col p-1
-							${room.status ? 'bg-primaryColor text-white' : 'bg-white text-darkColor'}`}
+						className={`sm:w-60 w-full text-lg h-[346px] 2xl:hover:scale-[102%] 2xl:hover:-translate-y-4 2xl:hover:shadow-xl transition-all items-center justify-center flex flex-col p-1
+							${
+								room.status
+									? 'bg-gradient-to-tr from-primaryColor to-secondaryColor text-white'
+									: 'bg-gradient-to-bl from-white to-gray-50 text-darkColor'
+							}`}
 					>
 						{room.status ? (
 							<>
