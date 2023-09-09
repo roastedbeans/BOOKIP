@@ -24,7 +24,7 @@ export default function LandingPage() {
 				className='w-full h-screen sm:p-16 xs:p-4 p-1 overflow-x-hidden scroll-smooth 2xl:overflow-y-hidden overflow-y-auto'
 			>
 				<div
-					className={`relative rounded-lg container py-10 flex flex-col backdrop-blur-md bg-gradient-to-bl from-[rgba(34,34,34,0.4)] to-[rgba(10,10,10,0.6)] 2xl:h-full ${
+					className={`relative rounded-lg container py-10 flex flex-col backdrop-blur-md bg-gradient-to-bl from-[rgba(34,34,34,0.5)] to-[rgba(5,5,5,0.5)] 2xl:h-full ${
 						showSignIn || showSignUp ? 'h-fit' : 'h-full'
 					}`}
 				>
@@ -73,13 +73,13 @@ export default function LandingPage() {
 							>
 								<button
 									onClick={() => setShowSignUp(true) || setShowSignIn(false) || scrollToBottom()}
-									className='hover:text-darkColor focus:text-darkColor lg:text-xl hover:bg-white focus:bg-white hover:scale-105 focus:scale-105 bg-primaryColor transition duration-150 ease-in-out rounded text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
+									className='hover:text-primaryColor  lg:text-xl hover:bg-white  hover:scale-105  bg-primaryColor transition duration-150 ease-in-out rounded text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
 								>
 									Get Started
 								</button>
 								<button
 									onClick={() => setShowSignIn(true) || setShowSignUp(false) || scrollToBottom()}
-									className=' lg:text-xl 2xl:hover:border-secondaryColor focus:border-secondaryColor 2xl:hover:scale-105 focus:scale-105 ml-3 sm:ml-6 bg-transparent transition duration-150 ease-in-out focus:outline-none rounded border border-white text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
+									className='lg:text-xl 2xl:hover:text-white 2xl:hover:border-secondaryColor 2xl:hover:scale-105 ml-3 sm:ml-6 bg-transparent transition duration-150 ease-in-out focus:outline-none rounded border border-white text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
 								>
 									Got Account?
 								</button>
