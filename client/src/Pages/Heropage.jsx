@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { SignIn, SignUp } from '@clerk/clerk-react';
 import BookipTrans2 from '@/assets/Bookip-transparent2.png';
-import background from '@/assets/background.svg';
+// import background from '@/assets/background.svg';
 
 function HeroPage() {
 	const [showSignUp, setShowSignUp] = useState(false);
@@ -17,7 +17,7 @@ function HeroPage() {
 
 	return (
 		<div className={`w-full h-screen overflow-x-hidden m-0 p-0`}>
-			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' />
+			{/* <img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' /> */}
 			{/* Code block starts */}
 			<div
 				ref={containerRef}
@@ -98,14 +98,14 @@ function HeroPage() {
 									showSignUp || !showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignUp path='/' routing='path' afterSignUpUrl='/dashboard' />
+								<SignUp path='/' routing='path' />
 							</div>
 							<div
 								className={`2xl:translate-x-40 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
 									!showSignUp || showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignIn path='/' routing='path' afterSignInUrl='/dashboard' />
+								<SignIn path='/' routing='path' />
 							</div>
 						</div>
 					</div>

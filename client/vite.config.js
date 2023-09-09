@@ -2,13 +2,16 @@
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import mdx from '@mdx-js/rollup';
+import Inspect from 'vite-plugin-inspect';
 
 export default defineConfig({
+	build: {
+		chunkSizeWarningLimit: 3000,
+	},
 	optimizeDeps: {
 		exclude: ['zod']['yup'],
 	},
-	plugins: [react()],
+	plugins: [react(), Inspect()],
 	resolve: {
 		mainFields: [],
 		alias: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import IncomeTable from '@/components/IncomeTable';
-import ExpensesTable from '@/components/ExpensesTable';
+// import ExpensesTable from '@/components/ExpensesTable';
 import ExpensesTableSample from '@/components/ExpensesTableSample';
 import HotelDisplay from '@/components/HotelDisplay';
 import Navbar from '@/components/Navbar';

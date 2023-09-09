@@ -19,7 +19,6 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BookingInfo } from '@/Posts';
 import { format } from 'date-fns';
-import FlipCountdown from '@rumess/react-flip-countdown';
 
 const columns = [
 	{
@@ -123,7 +122,6 @@ const columns = [
 
 export default function ExpensesTable() {
 	const data = BookingInfo();
-
 	const [sorting, setSorting] = useState([]);
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});
@@ -147,7 +145,7 @@ export default function ExpensesTable() {
 
 	return (
 		<div className='w-full'>
-			<div className='flex items-center py-4'>
+			<div className='flex xs:flex-row flex-col gap-2 items-center py-4'>
 				<Input
 					placeholder='Filter name...'
 					value={table.getColumn('customerName')?.getFilterValue() || ''}
