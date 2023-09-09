@@ -18,10 +18,6 @@ const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
 function ClerkProviderWithRoutes() {
 	const navigate = useNavigate();
 
-	const toHeroPage = () => {
-		navigate('/');
-	};
-
 	return (
 		<ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
 			<ClerkLoading>
@@ -29,7 +25,7 @@ function ClerkProviderWithRoutes() {
 			</ClerkLoading>
 			<Routes>
 				<Route
-					path='/'
+					path='/*'
 					element={
 						<>
 							<ClerkLoaded>
@@ -90,14 +86,6 @@ function ClerkProviderWithRoutes() {
 									<HeroPage />
 								</SignedOut>
 							</ClerkLoaded>
-						</>
-					}
-				/>
-				<Route
-					path='*'
-					element={
-						<>
-							<Navigate to='/' />
 						</>
 					}
 				/>
