@@ -16,7 +16,7 @@ export default function LandingPage() {
 	};
 
 	return (
-		<div className={`w-full h-full overflow-x-hidden m-0 p-0`}>
+		<div className={`w-full min-h-screen overflow-x-hidden m-0 p-0`}>
 			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-full w-full' />
 			{/* Code block starts */}
 			<div
