@@ -39,8 +39,8 @@ export default function Navbar() {
 		<div className='mb-16'>
 			<Disclosure
 				as='nav'
-				className={` drop-shadow-2xl top-0 z-10 transition-all fixed w-full bg-gradient-to-tr from-gray-900 to-gray-950 ${
-					navbar ? 'opacity-80' : 'opacity-100'
+				className={`backdrop-blur-md drop-shadow-2xl top-0 z-10 transition-colors fixed w-full ${
+					navbar ? ' bg-[rgba(0,0,0,0.6)]' : 'bg-[rgba(0,0,0,1)]'
 				}`}
 			>
 				{({ open }) => (
@@ -49,7 +49,7 @@ export default function Navbar() {
 							<div className='relative flex h-16 items-center justify-between'>
 								<div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
 									{/* Mobile menu button*/}
-									<Disclosure.Button className='relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+									<Disclosure.Button className='relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-tertiaryColor hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
 										<span className='absolute -inset-0.5' />
 										<span className='sr-only'>Open main menu</span>
 										{open ? (
@@ -70,8 +70,8 @@ export default function Navbar() {
 													key={item.name}
 													href={item.href}
 													className={classNames(
-														item.current ? 'bg-gray-900 text-white' : 'text-white hover:bg-gray-800 hover:text-white',
-														'rounded-md px-3 py-2 text-sm font-medium'
+														item.current ? 'text-white' : 'text-white hover:bg-tertiaryColor hover:text-black',
+														'rounded-md px-3 py-2 text-sm font-medium transition-colors duration-75'
 													)}
 													aria-current={item.current ? 'page' : undefined}
 												>
@@ -109,7 +109,9 @@ export default function Navbar() {
 										as='a'
 										href={item.href}
 										className={classNames(
-											item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+											item.current
+												? 'bg-gray-900 text-white'
+												: 'text-gray-300 hover:hover:bg-tertiaryColor hover:text-white',
 											'block rounded-md px-3 py-2 text-base font-medium'
 										)}
 										aria-current={item.current ? 'page' : undefined}
