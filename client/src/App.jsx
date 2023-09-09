@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { ClerkProvider, SignedIn, SignedOut, ClerkLoading, ClerkLoaded } from '@clerk/clerk-react';
-import { BrowserRouter, Route, Routes, useNavigate, Outlet, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
-import axios from 'axios';
 import Dashboard from './Pages/Dashboard';
-import HeroPage from './Pages/HeroPage';
 import LoadingPage from './components/LoadingPage';
 import HistoryPage from './Pages/HistoryPage';
 import IncomePage from './Pages/IncomePage';
+import LandingPage from './Pages/LandingPage';
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Publishable Key');
@@ -34,7 +33,7 @@ function ClerkProviderWithRoutes() {
 								</SignedIn>
 								<SignedOut>
 									<Navigate to='/' />
-									<HeroPage />
+									<LandingPage />
 								</SignedOut>
 							</ClerkLoaded>
 						</>
@@ -51,7 +50,7 @@ function ClerkProviderWithRoutes() {
 								</SignedIn>
 								<SignedOut>
 									<Navigate to='/' />
-									<HeroPage />
+									<LandingPage />
 								</SignedOut>
 							</ClerkLoaded>
 						</>
@@ -67,7 +66,7 @@ function ClerkProviderWithRoutes() {
 								</SignedIn>
 								<SignedOut>
 									<Navigate to='/' />
-									<HeroPage />
+									<LandingPage />
 								</SignedOut>
 							</ClerkLoaded>
 						</>
@@ -83,7 +82,7 @@ function ClerkProviderWithRoutes() {
 								</SignedIn>
 								<SignedOut>
 									<Navigate to='/' />
-									<HeroPage />
+									<LandingPage />
 								</SignedOut>
 							</ClerkLoaded>
 						</>

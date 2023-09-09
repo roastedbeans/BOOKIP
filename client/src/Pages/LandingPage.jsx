@@ -2,9 +2,9 @@
 import React, { useState, useRef } from 'react';
 import { SignIn, SignUp } from '@clerk/clerk-react';
 import BookipTrans2 from '@/assets/Bookip-transparent2.png';
-// import background from '@/assets/background.svg';
+import background from '@/assets/background.svg';
 
-function HeroPage() {
+export default function LandingPage() {
 	const [showSignUp, setShowSignUp] = useState(false);
 	const [showSignIn, setShowSignIn] = useState(false);
 	const containerRef = useRef(null);
@@ -17,7 +17,7 @@ function HeroPage() {
 
 	return (
 		<div className={`w-full h-screen overflow-x-hidden m-0 p-0`}>
-			{/* <img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' /> */}
+			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' />{' '}
 			{/* Code block starts */}
 			<div
 				ref={containerRef}
@@ -114,5 +114,3 @@ function HeroPage() {
 		</div>
 	);
 }
-
-export default HeroPage;
