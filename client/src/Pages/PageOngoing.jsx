@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '@/components/Navbar';
 import ongoingLogo from '@/assets/ongoing-image.gif';
 
 const PageOngoing = () => {
