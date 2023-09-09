@@ -93,17 +93,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.glass-container {
-  background: rgba(34, 34, 34, 0.7);
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .glass-container {
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-  }
-}
-
 .cl-formButtonPrimary {
   font-size: 14px;
   text-transform: none;

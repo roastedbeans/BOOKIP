@@ -16,15 +16,15 @@ export default function LandingPage() {
 	};
 
 	return (
-		<div className={`w-full h-screen overflow-x-hidden m-0 p-0`}>
-			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-screen w-full' />{' '}
+		<div className={`w-full h-full overflow-x-hidden m-0 p-0`}>
+			<img src={background} alt='bookip-bg' className=' absolute object-cover object-center -z-10 h-full w-full' />
 			{/* Code block starts */}
 			<div
 				ref={containerRef}
-				className='w-full h-screen sm:p-16 xs:p-4 p-0 overflow-x-hidden scroll-smooth 2xl:overflow-y-hidden overflow-y-auto'
+				className='w-full h-screen sm:p-16 xs:p-4 p-1 overflow-x-hidden scroll-smooth 2xl:overflow-y-hidden overflow-y-auto'
 			>
 				<div
-					className={`relative rounded-lg container py-10 flex flex-col glass-container 2xl:h-full ${
+					className={`relative rounded-lg container py-10 flex flex-col backdrop-blur-md bg-gradient-to-bl from-[rgba(34,34,34,0.4)] to-[rgba(10,10,10,0.6)] 2xl:h-full ${
 						showSignIn || showSignUp ? 'h-fit' : 'h-full'
 					}`}
 				>
@@ -73,13 +73,13 @@ export default function LandingPage() {
 							>
 								<button
 									onClick={() => setShowSignUp(true) || setShowSignIn(false) || scrollToBottom()}
-									className='hover:text-darkColor lg:text-xl hover:bg-white hover:scale-105 bg-primaryColor transition duration-150 ease-in-out rounded text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
+									className='hover:text-darkColor focus:text-darkColor lg:text-xl hover:bg-white focus:bg-white hover:scale-105 focus:scale-105 bg-primaryColor transition duration-150 ease-in-out rounded text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
 								>
 									Get Started
 								</button>
 								<button
 									onClick={() => setShowSignIn(true) || setShowSignUp(false) || scrollToBottom()}
-									className='hover:text-primaryColor lg:text-xl hover:border-primaryColor hover:scale-105 ml-3 sm:ml-6 bg-transparent transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-primaryColor focus:ring-white hover:bg-primaryColor-800 rounded border border-white text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
+									className=' lg:text-xl 2xl:hover:border-secondaryColor focus:border-secondaryColor 2xl:hover:scale-105 focus:scale-105 ml-3 sm:ml-6 bg-transparent transition duration-150 ease-in-out focus:outline-none rounded border border-white text-white px-4 sm:px-8 py-1 sm:py-3 text-sm'
 								>
 									Got Account?
 								</button>
@@ -87,22 +87,22 @@ export default function LandingPage() {
 						</div>
 						{/* Clerk Card */}
 						<div
-							className={` flex transition duration-500 2xl:justify-start self-center justify-center xl:items-center w-full items-start ${
+							className={` flex transition duration-500 2xl:justify-start self-center justify-center xl:items-center w-3/4 items-start ${
 								showSignUp || showSignIn
 									? '2xl:-translate-x-[0] 2xl:scale-100 scale-y-100 h-fit relative'
 									: '2xl:translate-x-[1000px] 2xl:scale-100 scale-y-0 h-[0] relative'
 							}`}
 						>
 							<div
-								className={`2xl:translate-x-40 translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
-									showSignUp || !showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
+								className={`2xl:translate-x-8 translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
+									showSignUp || !showSignIn ? 'xs:scale-100 scale-[98%] opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
 								<SignUp path='/' routing='path' />
 							</div>
 							<div
-								className={`2xl:translate-x-40 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
-									!showSignUp || showSignIn ? 'scale-100 opacity-100 absolute' : 'scale-0 opacity-0 '
+								className={`2xl:translate-x-8 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
+									!showSignUp || showSignIn ? 'xs:scale-100 scale-[98%] opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
 								<SignIn path='/' routing='path' />
