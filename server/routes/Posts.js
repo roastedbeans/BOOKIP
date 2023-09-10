@@ -3,6 +3,10 @@ require('dotenv').config();
 const router = express.Router();
 const { Room, Booking, Registration } = require('../models');
 
+router.get('/', (req, res) => {
+	res.send('Welcome to the Hotel API!');
+});
+
 // Create a new Room type
 router.post('/room', async (req, res) => {
 	const room = req.body;
@@ -279,6 +283,21 @@ router.put('/bookings/room/:roomID', async (req, res) => {
 			return res.status(404).json({ error: 'Booking not found' });
 		}
 		res.json({ message: 'Booking updated' });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
+//Delete booking by registrationID
+router.delete('/bookings/registration/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	try {
+		const deletedCount = await Booking.destroy({ where: { registrationID } });
+		if (!deletedCount) {
+			return res.status(404).json({ error: 'Booking not found' });
+		}
+		res.json({ message: 'Booking deleted' });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Internal Server Error' });
