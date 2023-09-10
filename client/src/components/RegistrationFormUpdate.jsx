@@ -55,6 +55,11 @@ export default function HotelFormUpdate(hotel) {
 				.then((response) => {
 					console.log(response.data);
 				});
+			await axios
+				.delete(`http://localhost:5000/posts/bookings/registration/${hotel.hotel.id}`, hotelInfo)
+				.then((response) => {
+					console.log(response.data);
+				});
 		} catch (err) {
 			console.log(err);
 		}
