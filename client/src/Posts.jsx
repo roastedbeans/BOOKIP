@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import LoadingPage from './components/LoadingPage';
 
-//export const host = 'https://bookip-server.onrender.com';
-export const host = 'http://localhost:5000';
+//export const host = 'http://localhost:5000';
+export const host = 'https://bookip-server.onrender.com';
 
 export default function Posts() {
 	const [posts, setPosts] = useState([]);
