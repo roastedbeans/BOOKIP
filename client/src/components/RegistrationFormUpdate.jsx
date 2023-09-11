@@ -15,6 +15,7 @@ import { registerForm } from '@/formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { host } from '@/Posts';
 import axios from 'axios';
 
 export default function HotelFormUpdate(hotel) {
@@ -32,7 +33,7 @@ export default function HotelFormUpdate(hotel) {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(`http://localhost:5000/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.put(`${host()}/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -45,21 +46,15 @@ export default function HotelFormUpdate(hotel) {
 	const handleDeleteHotel = async (e) => {
 		e.preventDefault();
 		try {
-			await axios
-				.delete(`http://localhost:5000/posts/registrations/id/${hotel.hotel.id}`, hotelInfo)
-				.then((response) => {
-					console.log(response.data);
-				});
-			await axios
-				.delete(`http://localhost:5000/posts/room/registration/${hotel.hotel.id}`, hotelInfo)
-				.then((response) => {
-					console.log(response.data);
-				});
-			await axios
-				.delete(`http://localhost:5000/posts/bookings/registration/${hotel.hotel.id}`, hotelInfo)
-				.then((response) => {
-					console.log(response.data);
-				});
+			await axios.delete(`${host()}/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
+				console.log(response.data);
+			});
+			await axios.delete(`${host()}/posts/room/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
+				console.log(response.data);
+			});
+			await axios.delete(`${host()}/posts/bookings/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
+				console.log(response.data);
+			});
 		} catch (err) {
 			console.log(err);
 		}

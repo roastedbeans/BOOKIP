@@ -22,7 +22,7 @@ import { BiEdit } from 'react-icons/bi';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { HotelInfo } from '@/Posts';
+import { HotelInfo, host } from '@/Posts';
 import axios from 'axios';
 
 export default function RoomFormUpdate(room) {
@@ -48,7 +48,7 @@ export default function RoomFormUpdate(room) {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(`http://localhost:5000/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.put(`${host()}/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -61,7 +61,7 @@ export default function RoomFormUpdate(room) {
 	const handleDeleteRoom = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.delete(`http://localhost:5000/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.delete(`${host()}/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {

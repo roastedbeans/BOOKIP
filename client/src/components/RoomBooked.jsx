@@ -7,6 +7,7 @@ import FlipCountdown from '@rumess/react-flip-countdown';
 import { Label } from './ui/label';
 import { AvatarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
+import { host } from '@/Posts';
 import axios from 'axios';
 
 const RoomBooked = (room) => {
@@ -15,8 +16,8 @@ const RoomBooked = (room) => {
 	let inTime = format(new Date(bookingInfo?.checkInDate || new Date()), 'PP');
 	const handleOnTimeUp = async () => {
 		try {
-			await axios.put(`http://localhost:5000/posts/bookings/room/${room.id}`, { status: false });
-			await axios.put(`http://localhost:5000/posts/room/id/${room.id}`, { status: false });
+			await axios.put(`${host()}/posts/bookings/room/${room.id}`, { status: false });
+			await axios.put(`${host()}/posts/room/id/${room.id}`, { status: false });
 		} catch (err) {
 			console.log(err);
 		}
