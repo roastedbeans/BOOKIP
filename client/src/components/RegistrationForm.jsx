@@ -20,7 +20,7 @@ export default function HotelForm() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post(`${host}/registrations/registrations`, hotelInfo).then((response) => {
+			await axios.post(`${host}/registrations`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
