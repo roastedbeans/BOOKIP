@@ -33,7 +33,7 @@ export default function HotelFormUpdate(hotel) {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(`${host()}/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.put(`${host}/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -46,13 +46,13 @@ export default function HotelFormUpdate(hotel) {
 	const handleDeleteHotel = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.delete(`${host()}/posts/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.delete(`${host}/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
-			await axios.delete(`${host()}/posts/room/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.delete(`${host}/rooms/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
-			await axios.delete(`${host()}/posts/bookings/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.delete(`${host}/bookings/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {

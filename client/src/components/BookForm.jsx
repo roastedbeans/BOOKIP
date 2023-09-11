@@ -70,10 +70,10 @@ const BookForm = (room) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post('${host()}/posts/bookings', bookInfo).then((response) => {
+			await axios.post(`${host}/bookings`, bookInfo).then((response) => {
 				console.log(response.data);
 			});
-			await axios.put(`${host()}/posts/room/id/${bookInfo.roomID}`, { status: true });
+			await axios.put(`${host}/rooms/id/${bookInfo.roomID}`, { status: true });
 		} catch (err) {
 			console.log(err);
 		}

@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import LoadingPage from './components/LoadingPage';
 
+// export const host = 'https://bookip-server.onrender.com';
+export const host = 'http://localhost:5000';
+
 export default function Posts() {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -10,7 +13,7 @@ export default function Posts() {
 
 	useEffect(() => {
 		axios
-			.get('http://localhost:5000/posts')
+			.get(`${host}`)
 			.then((response) => {
 				setPosts(response.data);
 				setLoading(false);
@@ -40,18 +43,11 @@ export default function Posts() {
 	);
 }
 
-export function host() {
-	const cloudHost = 'https://bookip-server.onrender.com';
-	const localHost = 'http://localhost:5000';
-
-	return cloudHost;
-}
-
 export function HotelInfo() {
 	const { user } = useUser();
 	const [hotelInfo, setHotelInfo] = useState([]);
 	useEffect(() => {
-		axios.get(`${host()}/posts/registrations/user/${user.id}`).then((response) => {
+		axios.get(`${host}/registrations/user/${user.id}`).then((response) => {
 			setHotelInfo(response.data);
 		});
 	}, [user.id]);
@@ -62,7 +58,7 @@ export function HotelInfo() {
 export function RoomInfo(registrationID) {
 	const [roomInfo, setRoomInfo] = useState([]);
 	useEffect(() => {
-		axios.get(`${host()}/posts/room/registration/${registrationID}`).then((response) => {
+		axios.get(`${host}/rooms/registration/${registrationID}`).then((response) => {
 			//sort by room name
 			const sortedData = response.data.sort((a, b) => (a.name > b.name ? 1 : -1));
 			setRoomInfo(sortedData);
@@ -75,7 +71,7 @@ export function RoomInfo(registrationID) {
 export function BookingInfo() {
 	const [bookingInfo, setBookingInfo] = useState([]);
 	useEffect(() => {
-		axios.get(`${host()}/posts/bookings/`).then((response) => {
+		axios.get(`${host}/bookings`).then((response) => {
 			setBookingInfo(response.data);
 		});
 	}, []);
@@ -86,7 +82,7 @@ export function BookingInfo() {
 export function BookingInfoByID(roomID) {
 	const [bookingInfo, setBookingInfo] = useState([]);
 	useEffect(() => {
-		axios.get(`${host()}/posts/bookings/room/${roomID}`).then((response) => {
+		axios.get(`${host}/bookings/room/${roomID}`).then((response) => {
 			//filter by the status of the booking
 			const filteredData = response.data.filter((booking) => booking.status === true)[0];
 			setBookingInfo(filteredData);

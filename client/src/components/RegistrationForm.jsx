@@ -11,7 +11,6 @@ import axios from 'axios';
 
 export default function HotelForm() {
 	const { user } = useUser();
-	const toHost = host();
 	const [hotelInfo, setHotelInfo] = useState(registerForm);
 
 	const onHandleChange = (e) => {
@@ -21,7 +20,7 @@ export default function HotelForm() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post(`${toHost}/posts/registrations`, hotelInfo).then((response) => {
+			await axios.post(`${host}/registrations/registrations`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
