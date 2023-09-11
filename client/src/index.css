@@ -120,3 +120,7 @@ input[type=number] {
 .cl-formResendCodeLink{
   margin-bottom: 20px;
 }
+
+.booked-card-opacity {
+  background: linear-gradient(45deg, rgba(199, 171, 255, .6), rgba(140, 82, 255, 0.6));
+}
