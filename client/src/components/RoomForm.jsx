@@ -50,7 +50,7 @@ export default function RoomForm() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		try {
-			axios.post(`${host()}/posts/room`, roomInfo).then((response) => {
+			axios.post(`${host}/rooms`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {

@@ -16,8 +16,8 @@ const RoomBooked = (room) => {
 	let inTime = format(new Date(bookingInfo?.checkInDate || new Date()), 'PP');
 	const handleOnTimeUp = async () => {
 		try {
-			await axios.put(`${host()}/posts/bookings/room/${room.id}`, { status: false });
-			await axios.put(`${host()}/posts/room/id/${room.id}`, { status: false });
+			await axios.put(`${host}/bookings/room/${room.id}`, { status: false });
+			await axios.put(`${host}/rooms/id/${room.id}`, { status: false });
 		} catch (err) {
 			console.log(err);
 		}

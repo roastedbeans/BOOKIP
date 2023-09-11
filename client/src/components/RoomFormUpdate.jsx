@@ -48,7 +48,7 @@ export default function RoomFormUpdate(room) {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.put(`${host()}/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.put(`${host}/rooms/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -61,7 +61,7 @@ export default function RoomFormUpdate(room) {
 	const handleDeleteRoom = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.delete(`${host()}/posts/room/id/${room.room.id}`, roomInfo).then((response) => {
+			await axios.delete(`${host}/rooms/id/${room.room.id}`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {

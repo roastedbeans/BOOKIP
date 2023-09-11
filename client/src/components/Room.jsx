@@ -30,8 +30,8 @@ const Rooms = () => {
 
 	const onBookingDone = async (room) => {
 		try {
-			await axios.put(`${host()}/posts/bookings/room/${room.id}`, { status: false });
-			await axios.put(`${host()}/posts/room/id/${room.id}`, { status: false });
+			await axios.put(`${host}/bookings/room/${room.id}`, { status: false });
+			await axios.put(`${host}/rooms/id/${room.id}`, { status: false });
 		} catch (err) {
 			console.log(err);
 		}
