@@ -13,7 +13,7 @@ const AddRoomButton = () => {
 	return (
 		<>
 			<button onClick={onOpenModal} className='sm:w-60 w-full h-fit'>
-				<Card className='w-full h-[346px] 2xl:hover:scale-[102%] 2xl:hover:shadow-xl 2xl:hover:opacity-80 2xl:hover:-translate-y-4 transition-all bg-gradient-to-bl from-white to-gray-50'>
+				<Card className='w-full h-[346px] 2xl:hover:scale-[102%] 2xl:hover:shadow-xl 2xl:hover:-translate-y-4 transition-all bg-[rgba(255,255,255,0.6)] backdrop-blur-md'>
 					<CardContent className='w-full h-full flex justify-center p-0 m-0'>
 						<IoAddCircleOutline className='self-center text-[72px]' />
 					</CardContent>

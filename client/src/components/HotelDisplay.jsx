@@ -14,7 +14,7 @@ const HotelDisplay = () => {
 
 	return (
 		<>
-			<Card className='2xs:w-full w-fit h-fit rounded-lg p-4 2xl:hover:scale-[101%] 2xl:hover:shadow-lg transition-all bg-gradient-to-bl from-white to-gray-50'>
+			<Card className='2xs:w-full w-fit h-fit rounded-lg p-4 2xl:hover:scale-[101%] 2xl:hover:shadow-lg transition-all bg-to-[rgba(255,255,255,.4)] backdrop-blur-md'>
 				<div className='space-y-1'>
 					<div className='w-full flex justify-between'>
 						<h4 className='text-lg font-medium leading-none'>{hotelName}</h4>

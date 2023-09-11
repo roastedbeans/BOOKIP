@@ -45,11 +45,11 @@ const Rooms = () => {
 				return (
 					<Card
 						key={index}
-						className={`sm:w-60 w-full text-lg h-[346px] 2xl:hover:scale-[102%] 2xl:hover:-translate-y-4 2xl:hover:shadow-xl transition-all items-center justify-center flex flex-col p-1
+						className={`sm:w-60 w-full text-lg h-[346px] 2xl:hover:scale-[102%]  2xl:hover:-translate-y-4 2xl:hover:shadow-xl transition-all items-center justify-center flex flex-col p-1
 							${
 								room.status
-									? 'bg-gradient-to-tr from-primaryColor to-secondaryColor text-white'
-									: 'bg-gradient-to-bl from-white to-gray-50 text-darkColor'
+									? 'booked-card-opacity backdrop-blur-md text-white'
+									: 'bg-[rgba(255,255,255,0.6)] backdrop-blur-md text-darkColor'
 							}`}
 					>
 						{room.status ? (
@@ -75,6 +75,7 @@ const Rooms = () => {
 				);
 			})}
 			<AddRoomButton />
+			<div className='w-60'></div>
 			<div className='w-60'></div>
 			<div className='w-60'></div>
 			<div className='w-60'></div>
