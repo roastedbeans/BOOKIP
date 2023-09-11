@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { themes, customStyles } from '@/themes';
-import { HotelInfo } from '@/Posts';
+import { HotelInfo, host } from '@/Posts';
 import axios from 'axios';
 
 export default function RoomForm() {
@@ -50,7 +50,7 @@ export default function RoomForm() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		try {
-			axios.post('http://localhost:5000/posts/room', roomInfo).then((response) => {
+			axios.post(`${host()}/posts/room`, roomInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {

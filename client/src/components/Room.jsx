@@ -8,6 +8,7 @@ import AddRoomButton from './AddRoomButton';
 import { modalCustomStyles } from '@/themes';
 import RoomContent from './RoomContent';
 import RoomBooked from './RoomBooked';
+import { host } from '@/Posts';
 import axios from 'axios';
 
 const Rooms = () => {
@@ -29,8 +30,8 @@ const Rooms = () => {
 
 	const onBookingDone = async (room) => {
 		try {
-			await axios.put(`http://localhost:5000/posts/bookings/room/${room.id}`, { status: false });
-			await axios.put(`http://localhost:5000/posts/room/id/${room.id}`, { status: false });
+			await axios.put(`${host()}/posts/bookings/room/${room.id}`, { status: false });
+			await axios.put(`${host()}/posts/room/id/${room.id}`, { status: false });
 		} catch (err) {
 			console.log(err);
 		}

@@ -39,25 +39,25 @@ export default function LandingPage() {
 						alt='bookip-corner-bg'
 					/>
 
-					<div className=' flex flex-col 2xl:flex-row w-full h-full 2xl:gap-0 gap-10 justify-center items-center 2xl:px-20'>
+					<div className='flex flex-col 2xl:flex-row w-full h-full 2xl:gap-0 gap-10 justify-center items-center 2xl:px-20'>
 						<div className='flex flex-col gap-6 justify-center items-center w-full h-full'>
 							<h1
 								className={`w-full transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
-									showSignUp || showSignIn ? '2xl:translate-x-[0px]' : '2xl:translate-x-[50%]'
+									showSignUp || showSignIn ? '2xl:translate-x-[0px]' : '2xl:translate-x-[36%]'
 								}`}
 							>
 								Keep it organized
 							</h1>
 							<h1
 								className={`w-full transition-all duration-500 2xl:text-6xl lg:text-5xl md:text-5xl sm:text-4xl xs:text-2xl 2xs:text-xl text-center text-white font-bold leading-tight ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[200px]' : '2xl:translate-x-[50%]'
+									showSignUp || showSignIn ? '2xl:-translate-x-[200px]' : '2xl:translate-x-[36%]'
 								}`}
 							>
 								with
 							</h1>
 							<div
 								className={`transition-all duration-500 flex w-full h-fit items-center gap-4 justify-center ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[100px]' : '2xl:translate-x-[50%]'
+									showSignUp || showSignIn ? '2xl:-translate-x-[100px]' : '2xl:translate-x-[36%]'
 								}`}
 							>
 								<img src={BookipTrans2} alt='bookip-logo' className='2xl:h-24 xl:h-20 md:h-16 sm:h-12 h-10 w-fit' />
@@ -68,7 +68,7 @@ export default function LandingPage() {
 
 							<div
 								className={`transition-all duration-500 flex w-full justify-center ${
-									showSignUp || showSignIn ? '2xl:-translate-x-[60px]' : '2xl:translate-x-[50%]'
+									showSignUp || showSignIn ? '2xl:-translate-x-[60px]' : '2xl:translate-x-[36%]'
 								}`}
 							>
 								<button

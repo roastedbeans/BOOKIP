@@ -11,6 +11,7 @@ import { Label } from './ui/label';
 import Select from 'react-select';
 import axios from 'axios';
 import { bookingForm, hoursOptions } from '@/formValue';
+import { host } from '@/Posts';
 import { themes, customStyles } from '@/themes';
 
 const BookForm = (room) => {
@@ -69,10 +70,10 @@ const BookForm = (room) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post('http://localhost:5000/posts/bookings', bookInfo).then((response) => {
+			await axios.post('${host()}/posts/bookings', bookInfo).then((response) => {
 				console.log(response.data);
 			});
-			await axios.put(`http://localhost:5000/posts/room/id/${bookInfo.roomID}`, { status: true });
+			await axios.put(`${host()}/posts/room/id/${bookInfo.roomID}`, { status: true });
 		} catch (err) {
 			console.log(err);
 		}
