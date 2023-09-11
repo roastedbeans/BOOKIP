@@ -6,6 +6,7 @@ import LoadingPage from './components/LoadingPage';
 //export const host = 'http://localhost:5000';
 export const host = 'https://bookip-server.onrender.com';
 
+
 export default function Posts() {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
