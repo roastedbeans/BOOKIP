@@ -6,6 +6,7 @@ import { LOCALHOST, CLOUDHOST, DEVELOPMENT } from '../hostKeys';
 
 export const host = DEVELOPMENT === 'development' ? LOCALHOST : CLOUDHOST;
 
+
 export default function Posts() {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
