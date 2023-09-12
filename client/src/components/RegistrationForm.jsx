@@ -5,7 +5,7 @@ import { registerForm } from '../formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { host } from '../Posts';
+import host from '../Posts';
 import RegImage from '../assets/registration-image.svg';
 import BgImage from '../assets/background-vertical.jpg';
 import axios from 'axios';
