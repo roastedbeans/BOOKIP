@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import LoadingPage from './components/LoadingPage';
 
-const DEPLOYMENT = 'development';
+const DEPLOYMENT = 'production';
 export const host = DEPLOYMENT === 'development' ? 'http://localhost:5000' : 'https://bookip-server.onrender.com';
 
 export default function Posts() {
