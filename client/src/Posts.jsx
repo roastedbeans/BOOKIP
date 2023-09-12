@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import LoadingPage from './components/LoadingPage';
+import { LOCALHOST, CLOUDHOST, DEVELOPMENT } from '../hostKeys';
 
-//export const host = 'http://localhost:5000';
-export const host = 'https://bookip-server.onrender.com';
+export const host = DEVELOPMENT === 'development' ? LOCALHOST : CLOUDHOST;
 
 
 export default function Posts() {
