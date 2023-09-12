@@ -20,9 +20,9 @@ export default function HotelForm() {
 
 	const onHandleChange = async (e) => {
 		setHotelInfo({ ...hotelInfo, [e.target.id]: e.target.value, userID: user.id });
-		setTyping(false);
-		await delay(100);
 		setShow(true);
+		setTyping(false);
+		await delay(3000);
 		setTyping(true);
 	};
 
