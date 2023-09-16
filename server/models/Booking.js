@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			allowNull: false,
 		},
+		registrationID: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		roomID: {
 			type: DataTypes.STRING,
 			allowNull: false,

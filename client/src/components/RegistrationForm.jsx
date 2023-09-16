@@ -5,31 +5,22 @@ import { registerForm } from '../formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import host from '../Posts';
-import RegImage from '../assets/registration-image.svg';
-import BgImage from '../assets/background-vertical.jpg';
+import { host } from '@/Posts';
+
 import axios from 'axios';
 
 export default function HotelForm() {
 	const { user } = useUser();
 	const [hotelInfo, setHotelInfo] = useState(registerForm);
-	const [show, setShow] = useState(false);
-	const [typing, setTyping] = useState(false);
-
-	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 	const onHandleChange = async (e) => {
 		setHotelInfo({ ...hotelInfo, [e.target.id]: e.target.value, userID: user.id });
-		setShow(true);
-		setTyping(false);
-		await delay(3000);
-		setTyping(true);
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post(`${host}/registrations`, hotelInfo).then((response) => {
+			await axios.post(`${host}/registrations/`, hotelInfo).then((response) => {
 				console.log(response.data);
 			});
 		} catch (err) {
@@ -40,40 +31,12 @@ export default function HotelForm() {
 	};
 
 	return (
-		<div className='w-full h-fit flex items-center justify-center md:flex-row-reverse flex-col md:mb-0 mb-6 md:pt-10'>
-			<img
-				className='md:hidden block fixed -z-10 object-cover h-full w-full top-0'
-				src={BgImage}
-				alt='background image'
-			/>
-			<input
-				src={RegImage}
-				alt='registration-image'
-				type={'image'}
-				disabled={show}
-				className={`md:block hidden select-none outline-none md:w-[560px] w-60 h-fit drop-shadow-md 2xl:hover:translate-x-2 2xl:hover:-translate-y-4 enabled:scale-0 disabled:scale-100 transition-transform duration-500 ${
-					typing ? '-translate-y-4' : 'translate-y-0'
-				}`}
-			/>
-
-			<Card
-				className={`md:w-fit w-full transition-transform duration-300 bg-gradient-to-bl from-[#f8f6fe] to-white ${
-					show ? 'md:translate-x-[0%]' : 'md:translate-x-[50%]'
-				}`}
-			>
+		<div className='w-full h-fit flex items-center justify-center md:mb-0 mb-6 md:pt-10'>
+			<Card className='md:w-fit xs:w-3/4 w-full transition-transform duration-300 bg-gradient-to-bl from-[#f8f6fe] to-white'>
 				<CardHeader>
 					<CardTitle>Register Hotel</CardTitle>
 					<CardDescription>Please fill-up the form</CardDescription>
 				</CardHeader>
-				<input
-					src={RegImage}
-					alt='registration-image'
-					type={'image'}
-					disabled={show}
-					className={`self-center md:hidden block select-none outline-none w-full disabled:h-fit px-6 drop-shadow-md enabled:scale-0 enabled:absolute disabled:relative disabled:scale-100 transition-transform duration-500 ${
-						typing ? '-translate-y-4' : 'translate-y-0'
-					}`}
-				/>
 				<CardContent>
 					<form onSubmit={onSubmit}>
 						<div className='grid w-full items-center gap-4'>

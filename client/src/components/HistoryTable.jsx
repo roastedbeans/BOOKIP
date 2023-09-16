@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BookingInfo } from '@/Posts';
+import { HotelInfo, BookingInfoByRegistrationID } from '@/Posts';
 import { format } from 'date-fns';
 
 const columns = [
@@ -121,7 +121,10 @@ const columns = [
 ];
 
 export default function ExpensesTable() {
-	const data = BookingInfo();
+	const registrationID = HotelInfo();
+	const data = BookingInfoByRegistrationID(registrationID.id);
+	console.log(registrationID);
+	console.log(data);
 	const [sorting, setSorting] = useState([]);
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});

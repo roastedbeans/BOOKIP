@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import LoadingPage from './components/LoadingPage';
 
-const DEPLOYMENT = 'production';
-export const host = DEPLOYMENT === 'development' ? 'http://localhost:5000' : 'https://bookip-server.onrender.com';
+export const host = 'http://localhost:5000';
 
 export default function Posts() {
 	const [posts, setPosts] = useState([]);
@@ -81,6 +80,25 @@ export function RoomInfo(registrationID) {
 	}, [registrationID]);
 
 	return roomInfo;
+}
+
+export function BookingInfoByRegistrationID(registrationID) {
+	const [bookingInfo, setBookingInfo] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				await axios.get(`${host}/bookings/registration/${registrationID}`).then((response) => {
+					setBookingInfo(response.data);
+				});
+			} catch (error) {
+				console.error('Error fetching BookingInfo: ', error);
+			}
+		}
+		fetchData();
+	}, [registrationID]);
+
+	return bookingInfo;
 }
 
 export function BookingInfo() {

@@ -7,6 +7,7 @@ import LoadingPage from './components/LoadingPage';
 import HistoryPage from './Pages/HistoryPage';
 import IncomePage from './Pages/IncomePage';
 import LandingPage from './Pages/LandingPage';
+import GuidesPage from './Pages/GuidesPage';
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Publishable Key');
@@ -79,6 +80,22 @@ function ClerkProviderWithRoutes() {
 							<ClerkLoaded>
 								<SignedIn>
 									<IncomePage />
+								</SignedIn>
+								<SignedOut>
+									<Navigate to='/' />
+									<LandingPage />
+								</SignedOut>
+							</ClerkLoaded>
+						</>
+					}
+				/>
+				<Route
+					path='/guides'
+					element={
+						<>
+							<ClerkLoaded>
+								<SignedIn>
+									<GuidesPage />
 								</SignedIn>
 								<SignedOut>
 									<Navigate to='/' />

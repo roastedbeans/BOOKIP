@@ -60,7 +60,14 @@ const BookForm = (room) => {
 		} else if (selectedHours === '24 hours') {
 			setRoomRate(room.room.price24h * (dateOut.getDate() - dateIn.getDate()));
 		}
-		setBookInfo({ ...bookInfo, checkInDate: dateIn, checkOutDate: dateOut, status: true, roomName: room.room.name });
+		setBookInfo({
+			...bookInfo,
+			checkInDate: dateIn,
+			checkOutDate: dateOut,
+			status: true,
+			roomName: room.room.name,
+			registrationID: room.room.registrationID,
+		});
 	}, [dateIn, dateOut, selectedHours]);
 
 	useEffect(() => {
@@ -80,7 +87,7 @@ const BookForm = (room) => {
 		setBookInfo(bookingForm);
 		window.location.reload();
 	};
-	console.log(bookInfo.roomID);
+	console.log(bookInfo);
 	return (
 		<Card className='w-full border-0 shadow-none'>
 			<CardHeader>
@@ -155,7 +162,7 @@ const BookForm = (room) => {
 											name='checkInDate'
 											mode='single'
 											selected={dateIn}
-											onSelect={(e) => onHandleChange({ target: { id: 'checkInDate', value: e } })}
+											onSelect={(e) => onHandleChange({ target: { id: 'checkInDate', value: e || dateIn } })}
 											initialFocus
 										/>
 									</PopoverContent>
@@ -183,7 +190,7 @@ const BookForm = (room) => {
 												name='checkOutDate'
 												mode='single'
 												selected={dateOut}
-												onSelect={(e) => onHandleChange({ target: { id: 'checkOutDate', value: e } })}
+												onSelect={(e) => onHandleChange({ target: { id: 'checkOutDate', value: e || dateOut } })}
 												initialFocus
 											/>
 										</PopoverContent>

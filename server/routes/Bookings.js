@@ -63,6 +63,21 @@ router.put('/room/:roomID', async (req, res) => {
 	}
 });
 
+//Get booking by registrationID
+router.get('/registration/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	try {
+		const booking = await Booking.findAll({ where: { registrationID } });
+		if (!booking) {
+			return res.status(404).json({ error: 'Booking not found' });
+		}
+		res.json(booking);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
 //Delete booking by registrationID
 router.delete('/registration/:registrationID', async (req, res) => {
 	const registrationID = req.params.registrationID;

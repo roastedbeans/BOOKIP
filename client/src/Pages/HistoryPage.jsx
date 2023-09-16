@@ -13,7 +13,7 @@ const HistoryPage = () => {
 	return (
 		<div className='w-full h-fit bg-gradient-to-tr md:from-white md:to-white from-white to-[#C7ABFF]'>
 			<Navbar />
-			<div className='w-full min-h-screen pt-5 sm:px-10 px-2 m-0 flex flex-col items-center'>
+			<div className='w-full h-fit pt-5 pb-20 sm:px-10 px-2 m-0 flex flex-col items-center'>
 				{hotelInfo && hotelInfo.length === 0 ? (
 					<RegistrationForm />
 				) : (
