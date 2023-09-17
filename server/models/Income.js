@@ -8,17 +8,21 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			allowNull: false,
 		},
-		date: {
+		registrationID: {
 			type: DataTypes.STRING,
 			allowNull: false,
+		},
+		date: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 		income: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 		},
 		expenses: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 		},
 	});
 	return Income;

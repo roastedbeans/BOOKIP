@@ -1,46 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import LoadingPage from './components/LoadingPage';
+import { IncomeTableForm, incomeForm } from './formValue';
 
 export const host = 'http://localhost:5000';
-
-export default function Posts() {
-	const [posts, setPosts] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		axios
-			.get(`${host}`)
-			.then((response) => {
-				setPosts(response.data);
-				setLoading(false);
-			})
-			.catch((err) => {
-				console.error(err);
-				setError(err);
-				setLoading(false);
-			});
-	}, []);
-
-	if (loading) {
-		return <LoadingPage />;
-	}
-
-	if (error) {
-		return <div>Error: {error.message}</div>;
-	}
-
-	// Render your posts using the 'posts' state data
-	return (
-		<div>
-			{posts.map((post) => (
-				<div key={post.id}>{post.title}</div>
-			))}
-		</div>
-	);
-}
 
 export function HotelInfo() {
 	const { user } = useUser();
@@ -66,6 +29,9 @@ export function RoomInfo(registrationID) {
 
 	useEffect(() => {
 		async function fetchData() {
+			if (registrationID === undefined) {
+				return;
+			}
 			try {
 				await axios.get(`${host}/rooms/registration/${registrationID}`).then((response) => {
 					//sort by room name
@@ -139,4 +105,88 @@ export function BookingInfoByID(roomID) {
 	}, [roomID]);
 
 	return bookingInfo;
+}
+
+export function IncomeInfoByRegistrationID(registrationID) {
+	const [incomeInfo, setIncomeInfo] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				await axios.get(`${host}/incomes/${registrationID}`).then((response) => {
+					setIncomeInfo(response.data);
+				});
+			} catch (error) {
+				console.error('Error fetching IncomeInfo: ', error);
+			}
+		}
+		fetchData();
+	}, [registrationID]);
+
+	return incomeInfo;
+}
+
+export function IncomeTableContent(incomeData) {
+	// Initialize the monthlyCalculations array using useState
+	const [monthlyCalculations, setMonthlyCalculations] = useState([]);
+
+	// Create a helper function to find or create a month entry in the array
+	function findOrCreateMonthEntry(monthKey) {
+		const existingEntry = monthlyCalculations.find((entry) => entry.key === monthKey);
+		if (existingEntry) {
+			return existingEntry;
+		}
+
+		const newEntry = {
+			key: monthKey,
+			period: monthKey.split('-')[0],
+			year: monthKey.split('-')[1],
+			income: 0,
+			expenses: 0,
+			beforeTax: 0,
+			taxExpense: 0,
+			netIncome: 0,
+		};
+
+		// Use the setMonthlyCalculations function to update the state
+		setMonthlyCalculations((prevCalculations) => [...prevCalculations, newEntry]);
+
+		return newEntry;
+	}
+
+	// Iterate through the data and group entries by month
+	incomeData.forEach((entry) => {
+		const dateParts = entry.date.split('-');
+		const year = dateParts[0];
+		const month = dateParts[1];
+		const monthKey = `${year}-${month}`;
+
+		const monthEntry = findOrCreateMonthEntry(monthKey);
+
+		const entryIncome = parseFloat(entry.income);
+		const entryExpense = parseFloat(entry.expense);
+
+		// Add income and expense to the respective month
+		if (entryIncome) {
+			monthEntry.income += entryIncome;
+		}
+		if (entryExpense) {
+			monthEntry.expenses += entryExpense;
+		}
+	});
+
+	// Calculate net income, income tax expense, and net income for each month
+	monthlyCalculations.forEach((monthData) => {
+		// Calculate net income before tax for the month
+		monthData.beforeTax = monthData.income - monthData.expenses;
+
+		// Assuming an income tax rate of 20% (adjust as needed)
+		const incomeTaxRate = 0.2;
+		monthData.taxExpense = monthData.income * incomeTaxRate;
+
+		// Calculate net income for the month
+		monthData.netIncome = monthData.beforeTax - monthData.taxExpense;
+	});
+
+	return monthlyCalculations;
 }

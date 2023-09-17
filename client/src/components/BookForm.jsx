@@ -36,6 +36,8 @@ const BookForm = (room) => {
 		if (e.target?.id === 'checkInDate' && e.target.value != null) {
 			e.target.value.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
 			setInDate(new Date(e.target?.value));
+			e.target.value.setHours(currentTime.getHours() + 24, currentTime.getMinutes(), currentTime.getSeconds());
+			setOutDate(new Date(e.target?.value));
 			if (selectedHours === '12 hours') {
 				e.target.value.setHours(currentTime.getHours() + 12, currentTime.getMinutes(), currentTime.getSeconds());
 				setOutDate(new Date(e.target.value));
@@ -87,7 +89,7 @@ const BookForm = (room) => {
 		setBookInfo(bookingForm);
 		window.location.reload();
 	};
-	console.log(bookInfo);
+
 	return (
 		<Card className='w-full border-0 shadow-none'>
 			<CardHeader>

@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 import {
 	flexRender,
@@ -24,139 +24,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
-const data = [
-	{
-		id: 'm5gr84i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr2384i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr8234i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr8214i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr23384i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5g43r84i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr8214i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr23384i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5g43r84i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr8214i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr23384i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5g43r84i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-	{
-		id: 'm5gr523484i9',
-		period: 'jan - mar',
-		year: '2023',
-		income: 100000,
-		expenses: 40000,
-		beforeTax: 60000,
-		taxExpense: 10000,
-		netIncome: 50000,
-	},
-];
+import { HotelInfo, IncomeInfoByRegistrationID, IncomeTableContent } from '@/Posts';
+import { IncomeTableForm } from '@/formValue';
 
 const columns = [
 	{
@@ -257,10 +126,15 @@ const columns = [
 	},
 ];
 
-export default function ExpensesTable() {
+export default function IncomeTable() {
+	const hotelInfo = HotelInfo();
+	const incomeData = IncomeInfoByRegistrationID(hotelInfo.id);
+	const data = IncomeTableContent(incomeData);
 	const [sorting, setSorting] = useState([]);
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});
+
+	console.log(data);
 
 	const table = useReactTable({
 		data,

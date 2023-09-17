@@ -6,7 +6,6 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { host } from '@/Posts';
-
 import axios from 'axios';
 
 export default function HotelForm() {

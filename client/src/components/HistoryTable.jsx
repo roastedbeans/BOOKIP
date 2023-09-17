@@ -120,11 +120,9 @@ const columns = [
 	},
 ];
 
-export default function ExpensesTable() {
+export default function HistoryTable() {
 	const registrationID = HotelInfo();
 	const data = BookingInfoByRegistrationID(registrationID.id);
-	console.log(registrationID);
-	console.log(data);
 	const [sorting, setSorting] = useState([]);
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});
