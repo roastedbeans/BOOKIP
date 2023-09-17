@@ -12,8 +12,8 @@ import { host } from '@/Posts';
 import axios from 'axios';
 
 const Rooms = () => {
-	const registrationID = HotelInfo();
-	const fetchedRoomInfo = RoomInfo(registrationID.id);
+	const hotelInfo = HotelInfo();
+	const fetchedRoomInfo = RoomInfo(hotelInfo.id);
 
 	const [selectedRoom, setSelectedRoom] = useState([]);
 	const [open, setOpen] = useState(false);

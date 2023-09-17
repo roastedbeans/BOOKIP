@@ -11,7 +11,6 @@ import Footer from '@/components/Footer';
 
 const MainPage = () => {
 	const hotelInfo = HotelInfo();
-
 	return (
 		<>
 			<div className='w-full h-fit'>

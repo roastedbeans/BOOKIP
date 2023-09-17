@@ -1,16 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import { Separator } from './ui/separator';
 import { Card } from './ui/card';
-import { HotelInfo } from '@/Posts';
+import { format } from 'date-fns';
+import { incomeForm } from '@/formValue';
+import { host, HotelInfo, BookingInfoByRegistrationID } from '@/Posts';
 import HotelFormUpdate from './RegistrationFormUpdate';
+import axios from 'axios';
 
 const HotelDisplay = () => {
 	const hotelInfo = HotelInfo();
+	const fetchBookingData = BookingInfoByRegistrationID(hotelInfo.id);
 	const [selectedHotel, setSelectedHotel] = useState([]);
+
 	const { hotelName, contactNumber, street, city, province, country, zipCode } = hotelInfo;
+
 	useEffect(() => {
 		setSelectedHotel(hotelInfo);
-	}, [hotelInfo]);
+	}, []);
+
+	useEffect(() => {
+		const totals = {};
+		let date = null;
+		let month = null;
+
+		fetchBookingData.forEach((data) => {
+			date = data.checkInDate.split('-')[1] + '-' + data.checkInDate.split('-')[0];
+			month = data.checkInDate.split('-')[1];
+			const incomePrice = parseFloat(data.price);
+
+			if (!totals[month]) {
+				totals[month] = 0;
+			}
+			totals[month] += incomePrice;
+		});
+
+		const incomeData = { income: totals[month], date: date, registrationID: hotelInfo.id };
+
+		async function fetchData() {
+			try {
+				const response = await axios.get(`${host}/incomes/${hotelInfo.id}/${date}`);
+				response.data.forEach((data) => {
+					if (data.date === date && data.date) {
+						axios
+							.put(`${host}/incomes/date/${incomeData.date}`, {
+								income: incomeData.income,
+							})
+							.then((response) => {
+								console.log(response.data);
+							});
+					} else if (data.date !== date && data.date) {
+						axios.post(`${host}/incomes`, incomeData).then((response) => {
+							console.log(response.data);
+						});
+					}
+				});
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		fetchData();
+	}, [fetchBookingData]);
 
 	return (
 		<>

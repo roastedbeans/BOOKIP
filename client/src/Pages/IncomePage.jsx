@@ -23,16 +23,16 @@ const IncomePage = () => {
 					<>
 						<HotelDisplay />
 						<Separator className='my-4' />
-						<PageOngoing />
-						<div className='hidden'>
+						{/* <PageOngoing /> */}
+						<div className='flex flex-col w-full mb-20'>
 							<h4 className='text-lg font-medium leading-none mb-4'>Income Statement</h4>
-							<div className='flex w-full items-center justify-center mx-auto'>
+							<div className='flex w-full items-center justify-center'>
 								<IncomeTable />
 							</div>
 							<Separator className='my-4' />
 							<h4 className='text-lg font-medium leading-none mb-4'>Expense Report</h4>
-							<div className='flex w-full items-center justify-center mx-auto'>
-								{/*<ExpensesTable /> */}
+							<div className='flex w-full items-center justify-center'>
+								{/* <ExpensesTable /> */}
 								<ExpensesTableSample />
 							</div>
 						</div>

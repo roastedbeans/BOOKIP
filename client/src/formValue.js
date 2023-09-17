@@ -36,6 +36,24 @@ export const bookingForm = {
 	status: false,
 };
 
+export const incomeForm = {
+	registrationID: '',
+	date: new Date(),
+	income: '',
+	expenses: '',
+};
+
+export const IncomeTableForm = {
+	id: '',
+	period: '',
+	year: '',
+	income: '',
+	expenses: '',
+	beforeTax: '',
+	taxExpense: '',
+	netIncome: '',
+};
+
 export const FormSchema = Yup.object({
 	name: Yup.string()
 		.min(3)
