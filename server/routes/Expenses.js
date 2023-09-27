@@ -94,4 +94,19 @@ router.put('/date/:date', async (req, res) => {
 	}
 });
 
+// Delete expense by registrationID
+router.delete('/registration/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	try {
+		const expense = await Expense.destroy({ where: { registrationID } });
+		if (!expense) {
+			return res.status(404).json({ error: 'expense not found' });
+		}
+		res.json({ message: 'expense deleted' });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
 module.exports = router;

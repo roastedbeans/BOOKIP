@@ -48,18 +48,35 @@ export default function HotelFormUpdate(hotel) {
 		try {
 			await axios.delete(`${host}/rooms/registration/${hotelInfo.id}`, hotelInfo);
 			console.log('Rooms deleted successfully');
-
-			await axios.delete(`${host}/bookings/registration/${hotelInfo.id}`, hotelInfo);
-			console.log('Bookings deleted successfully');
-
-			await axios.delete(`${host}/registrations/id/${hotelInfo.id}`, hotelInfo);
-			console.log('Registrations deleted successfully');
-
-			setHotelInfo(registerForm);
-			window.location.reload();
 		} catch (err) {
 			console.log(err);
 		}
+		try {
+			await axios.delete(`${host}/bookings/registration/${hotelInfo.id}`, hotelInfo);
+			console.log('Bookings deleted successfully');
+		} catch (err) {
+			console.log(err);
+		}
+		try {
+			await axios.delete(`${host}/incomes/registration/${hotelInfo.id}`, hotelInfo);
+			console.log('Incomes deleted successfully');
+		} catch (err) {
+			console.log(err);
+		}
+		try {
+			await axios.delete(`${host}/expenses/registration/${hotelInfo.id}`, hotelInfo);
+			console.log('Expenses deleted successfully');
+		} catch (err) {
+			console.log(err);
+		}
+		try {
+			await axios.delete(`${host}/registrations/id/${hotelInfo.id}`, hotelInfo);
+			console.log('Registrations deleted successfully');
+		} catch (err) {
+			console.log(err);
+		}
+		setHotelInfo(registerForm);
+		//window.location.reload();
 	};
 
 	return (

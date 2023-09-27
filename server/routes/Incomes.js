@@ -95,4 +95,19 @@ router.put('/date/:date', async (req, res) => {
 	}
 });
 
+// Delete income by registrationID
+router.delete('/registration/:registrationID', async (req, res) => {
+	const registrationID = req.params.registrationID;
+	try {
+		const income = await Income.destroy({ where: { registrationID } });
+		if (!income) {
+			return res.status(404).json({ error: 'Income not found' });
+		}
+		res.json({ message: 'Income deleted' });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+});
+
 module.exports = router;
