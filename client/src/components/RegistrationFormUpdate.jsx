@@ -32,8 +32,9 @@ export default function HotelFormUpdate(hotel) {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
-			await axios.put(`${host}/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
+			await axios.put(`${host}/registrations/id/${hotelInfo.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
 				setHotelInfo(registerForm);
 				window.location.reload();
@@ -42,24 +43,23 @@ export default function HotelFormUpdate(hotel) {
 			console.log(err);
 		}
 	};
-
 	const handleDeleteHotel = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.delete(`${host}/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
-				console.log(response.data);
-			});
-			await axios.delete(`${host}/rooms/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
-				console.log(response.data);
-			});
-			await axios.delete(`${host}/bookings/registration/${hotel.hotel.id}`, hotelInfo).then((response) => {
-				console.log(response.data);
-			});
+			await axios.delete(`${host}/rooms/registration/${hotelInfo.id}`, hotelInfo);
+			console.log('Rooms deleted successfully');
+
+			await axios.delete(`${host}/bookings/registration/${hotelInfo.id}`, hotelInfo);
+			console.log('Bookings deleted successfully');
+
+			await axios.delete(`${host}/registrations/id/${hotelInfo.id}`, hotelInfo);
+			console.log('Registrations deleted successfully');
+
+			setHotelInfo(registerForm);
+			window.location.reload();
 		} catch (err) {
 			console.log(err);
 		}
-		setHotelInfo(registerForm);
-		window.location.reload();
 	};
 
 	return (

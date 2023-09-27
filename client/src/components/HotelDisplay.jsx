@@ -14,7 +14,7 @@ const HotelDisplay = () => {
 
 	useEffect(() => {
 		setSelectedHotel(hotelInfo);
-	}, []);
+	}, [hotelInfo]);
 
 	useEffect(() => {
 		const calculateIncome = () => {
