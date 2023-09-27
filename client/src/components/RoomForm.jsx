@@ -48,20 +48,23 @@ export default function RoomForm() {
 	};
 
 	const onSubmit = (e) => {
-		e.preventDefault();
-		try {
-			axios.post(`${host}/rooms`, roomInfo).then((response) => {
-				console.log(response.data);
-			});
-		} catch (err) {
-			console.log(err);
+		async function postData() {
+			e.preventDefault();
+			try {
+				await axios.post(`${host}/rooms`, roomInfo).then((response) => {
+					console.log(response.data);
+					setRoomInfo(createForm);
+					setSelectedRoomType('');
+					setSelectedBedNumber('');
+					setSelectedCrInclusion('');
+					setSelectedTvInclusion('');
+					window.location.reload();
+				});
+			} catch (err) {
+				console.log(err);
+			}
 		}
-		setRoomInfo(createForm);
-		setSelectedRoomType('');
-		setSelectedBedNumber('');
-		setSelectedCrInclusion('');
-		setSelectedTvInclusion('');
-		window.location.reload();
+		postData();
 	};
 
 	return (

@@ -21,12 +21,12 @@ export default function HotelForm() {
 		try {
 			await axios.post(`${host}/registrations/`, hotelInfo).then((response) => {
 				console.log(response.data);
+				setHotelInfo(registerForm);
+				window.location.reload();
 			});
 		} catch (err) {
 			console.log(err);
 		}
-		setHotelInfo(registerForm);
-		window.location.reload();
 	};
 
 	return (

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import { IncomeTableForm, incomeForm, ExpenseTableForm } from './formValue';
 
-export const host = 'http://localhost:5000';
+//export const host = 'http://localhost:5000';
+export const host = 'https://bookip-server.onrender.com';
 
 export function HotelInfo() {
 	const { user } = useUser();
@@ -54,16 +55,17 @@ export function BookingInfoByRegistrationID(registrationID) {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				await axios.get(`${host}/bookings/registration/${registrationID}`).then((response) => {
-					setBookingInfo(response.data);
-				});
+				const response = await axios.get(`${host}/bookings/registration/${registrationID}`);
+				setBookingInfo(response.data);
 			} catch (error) {
 				console.error('Error fetching BookingInfo: ', error);
 			}
 		}
+
 		fetchData();
 	}, [registrationID]);
 
+	// Return null if loading is true (data is being fetched), or return the data if it's available
 	return bookingInfo;
 }
 
