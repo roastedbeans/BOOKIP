@@ -35,12 +35,12 @@ export default function HotelFormUpdate(hotel) {
 		try {
 			await axios.put(`${host}/registrations/id/${hotel.hotel.id}`, hotelInfo).then((response) => {
 				console.log(response.data);
+				setHotelInfo(registerForm);
+				window.location.reload();
 			});
 		} catch (err) {
 			console.log(err);
 		}
-		setHotelInfo(registerForm);
-		window.location.reload();
 	};
 
 	const handleDeleteHotel = async (e) => {
@@ -81,7 +81,7 @@ export default function HotelFormUpdate(hotel) {
 								name='hotelName'
 								type='text'
 								placeholder='Enter hotel name'
-								value={hotelInfo.hotelName}
+								value={hotelInfo.hotelName || ''}
 								required
 								onChange={onHandleChange}
 							/>
@@ -93,7 +93,7 @@ export default function HotelFormUpdate(hotel) {
 								name='contactNumber'
 								type='number'
 								placeholder='Enter contact number'
-								value={hotelInfo.contactNumber}
+								value={hotelInfo.contactNumber || ''}
 								required
 								onChange={onHandleChange}
 							/>
@@ -105,7 +105,7 @@ export default function HotelFormUpdate(hotel) {
 								name='street'
 								type='text'
 								placeholder='Enter contact number'
-								value={hotelInfo.street}
+								value={hotelInfo.street || ''}
 								required
 								onChange={onHandleChange}
 							/>
@@ -117,7 +117,7 @@ export default function HotelFormUpdate(hotel) {
 									id='city'
 									name='city'
 									onChange={onHandleChange}
-									value={hotelInfo.city}
+									value={hotelInfo.city || ''}
 									type='text'
 									placeholder='Enter city'
 									required
@@ -129,7 +129,7 @@ export default function HotelFormUpdate(hotel) {
 									id='province'
 									name='province'
 									onChange={onHandleChange}
-									value={hotelInfo.province}
+									value={hotelInfo.province || ''}
 									type='text'
 									placeholder='Enter province'
 									required
@@ -143,7 +143,7 @@ export default function HotelFormUpdate(hotel) {
 									id='country'
 									name='country'
 									onChange={onHandleChange}
-									value={hotelInfo.country}
+									value={hotelInfo.country || ''}
 									type='text'
 									placeholder='Enter country'
 									required
@@ -155,7 +155,7 @@ export default function HotelFormUpdate(hotel) {
 									id='zipCode'
 									name='zipCode'
 									onChange={onHandleChange}
-									value={hotelInfo.zipCode}
+									value={hotelInfo.zipCode || ''}
 									type='number'
 									placeholder='Enter zip code'
 									required
