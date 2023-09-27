@@ -11,17 +11,21 @@ import { BiInfoCircle } from 'react-icons/bi';
 
 export default function TaxesForm() {
 	const [taxInfo, setTaxInfo] = useState(incomeForm);
-	const [existingData, setExistingData] = useState();
 	const hotelInfo = HotelInfo();
 
 	const onReset = () => {
 		setTaxInfo(incomeForm);
 	};
 
-	const onHandleChange = (e) => {
-		// Use a regular expression to check if the input is a valid decimal number
-		if (existingData.tax && e.target.id === 'taxButton') {
-			setTaxInfo({ ...taxInfo.tax, tax: existingData?.tax });
+	const onHandleChange = async (e) => {
+		if (e.target.id === 'taxButton') {
+			try {
+				const response = await axios.get(`${host}/incomes/${hotelInfo.id}`);
+				const fetchTax = response.data[0].tax;
+				setTaxInfo({ ...taxInfo.tax, tax: fetchTax });
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
 			setTaxInfo({
 				...taxInfo.tax,
@@ -29,25 +33,11 @@ export default function TaxesForm() {
 			});
 		}
 	};
-	console.log(taxInfo?.tax);
-
-	useEffect(() => {
-		async function fetchData() {
-			try {
-				const response = await axios.get(`${host}/incomes/${hotelInfo.id}`);
-				setExistingData(response.data[0]);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-
-		fetchData();
-	}, [hotelInfo.id]);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		if (existingData) {
+		if (taxInfo.tax) {
 			// If data exists, update it
 			const updateResponse = await axios.put(`${host}/incomes/registration/${hotelInfo.id}`, { tax: taxInfo.tax });
 			console.log(updateResponse.data);

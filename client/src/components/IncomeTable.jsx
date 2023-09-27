@@ -10,16 +10,6 @@ import {
 } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { HotelInfo, IncomeInfoByRegistrationID, IncomeTableContent } from '@/Posts';
@@ -28,7 +18,25 @@ const columns = [
 	{
 		accessorKey: 'period',
 		header: 'Period',
-		cell: ({ row }) => <div className='capitalize'>{row.getValue('period')}</div>,
+
+		cell: ({ row }) => {
+			const months = [
+				'January',
+				'February',
+				'March',
+				'April',
+				'May',
+				'June',
+				'July',
+				'August',
+				'September',
+				'October',
+				'November',
+				'December',
+			];
+
+			return <div className='capitalize'>{months[parseInt(row.getValue('period')) - 1]}</div>;
+		},
 	},
 	{
 		accessorKey: 'year',
@@ -131,6 +139,21 @@ export default function IncomeTable() {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});
 
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	];
+
 	const table = useReactTable({
 		data,
 		columns,
@@ -158,30 +181,6 @@ export default function IncomeTable() {
 					className='max-w-sm'
 				/>
 				<TaxesForm />
-				{/* <DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='outline' className='ml-auto'>
-							Period <ChevronDownIcon className='ml-2 h-4 w-4' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						{table
-							.getAllColumns()
-							.filter((column) => column.getCanHide())
-							.map((column) => {
-								return (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										className='capitalize'
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) => column.toggleVisibility(!!value)}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								);
-							})}
-					</DropdownMenuContent>
-				</DropdownMenu> */}
 			</div>
 			<div className='rounded-md border'>
 				<Table>
