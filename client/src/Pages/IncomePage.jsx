@@ -1,7 +1,6 @@
 import React from 'react';
 import IncomeTable from '@/components/IncomeTable';
-// import ExpensesTable from '@/components/ExpensesTable';
-import ExpensesTableSample from '@/components/ExpensesTableSample';
+import ExpensesTable from '@/components/ExpensesTable';
 import HotelDisplay from '@/components/HotelDisplay';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -14,7 +13,7 @@ const IncomePage = () => {
 	const hotelInfo = HotelInfo();
 
 	return (
-		<div className='w-full h-fit bg-gradient-to-tr md:from-white md:to-white from-white to-[#C7ABFF]'>
+		<div className='w-full h-fit bg-white'>
 			<Navbar />
 			<div className='w-full h-fit pt-5 pb-20 sm:px-10 px-2 m-0 flex flex-col items-center justify-start'>
 				{hotelInfo && hotelInfo.length === 0 ? (
@@ -32,8 +31,7 @@ const IncomePage = () => {
 							<Separator className='my-4' />
 							<h4 className='text-lg font-medium leading-none mb-4'>Expense Report</h4>
 							<div className='flex w-full items-center justify-center'>
-								{/* <ExpensesTable /> */}
-								<ExpensesTableSample />
+								<ExpensesTable />
 							</div>
 						</div>
 					</>

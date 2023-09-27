@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Separator } from './ui/separator';
 import { Card } from './ui/card';
-import { format } from 'date-fns';
-import { incomeForm } from '@/formValue';
 import { host, HotelInfo, BookingInfoByRegistrationID } from '@/Posts';
 import HotelFormUpdate from './RegistrationFormUpdate';
 import axios from 'axios';
@@ -19,47 +17,54 @@ const HotelDisplay = () => {
 	}, []);
 
 	useEffect(() => {
-		const totals = {};
-		let date = null;
-		let month = null;
+		const calculateIncome = () => {
+			const totals = {};
+			fetchBookingData.forEach((data) => {
+				const [year, month] = data.checkInDate.split('-');
+				const incomePrice = parseFloat(data.price);
+				const date = `${month}-${year}`;
 
-		fetchBookingData.forEach((data) => {
-			date = data.checkInDate.split('-')[1] + '-' + data.checkInDate.split('-')[0];
-			month = data.checkInDate.split('-')[1];
-			const incomePrice = parseFloat(data.price);
+				if (!totals[date]) {
+					totals[date] = 0;
+				}
+				totals[date] += incomePrice;
+			});
+			return totals;
+		};
 
-			if (!totals[month]) {
-				totals[month] = 0;
-			}
-			totals[month] += incomePrice;
-		});
+		const incomeTotals = calculateIncome();
+		const currentDate = new Date();
+		const currentMonth = `${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
 
-		const incomeData = { income: totals[month], date: date, registrationID: hotelInfo.id };
-
-		async function fetchData() {
+		const fetchIncomeData = async () => {
 			try {
-				const response = await axios.get(`${host}/incomes/${hotelInfo.id}/${date}`);
-				response.data.forEach((data) => {
-					if (data.date === date && data.date) {
-						axios
-							.put(`${host}/incomes/date/${incomeData.date}`, {
-								income: incomeData.income,
-							})
-							.then((response) => {
-								console.log(response.data);
-							});
-					} else if (data.date !== date && data.date) {
-						axios.post(`${host}/incomes`, incomeData).then((response) => {
-							console.log(response.data);
-						});
-					}
-				});
-			} catch (err) {
-				console.log(err);
+				const response = await axios.get(`${host}/incomes/${hotelInfo.id}/${currentMonth}`);
+				const existingIncome = response.data[0];
+				if (!existingIncome && hotelInfo.id && fetchBookingData) {
+					// If no existing income data, create a new record
+					const newIncomeData = {
+						income: incomeTotals[currentMonth],
+						date: currentMonth,
+						registrationID: hotelInfo.id,
+					};
+					const insertResponse = await axios.post(`${host}/incomes`, newIncomeData);
+					console.log('New income data inserted:', insertResponse.data);
+				} else if (existingIncome && incomeTotals[currentMonth] && fetchBookingData) {
+					// If existing income data, update the record
+					const updatedIncomeData = {
+						income: incomeTotals[currentMonth],
+						tax: existingIncome.tax,
+					};
+					const updateResponse = await axios.put(`${host}/incomes/date/${currentMonth}`, updatedIncomeData);
+					console.log('Income data updated:', updateResponse.data);
+				}
+			} catch (error) {
+				console.error('Error fetching/updating income data:', error);
 			}
-		}
-		fetchData();
-	}, [fetchBookingData]);
+		};
+
+		fetchIncomeData();
+	}, [hotelInfo.id, fetchBookingData]);
 
 	return (
 		<>

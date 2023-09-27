@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
-import { IncomeTableForm, incomeForm } from './formValue';
+import { IncomeTableForm, incomeForm, ExpenseTableForm } from './formValue';
 
 export const host = 'http://localhost:5000';
 
@@ -126,6 +126,25 @@ export function IncomeInfoByRegistrationID(registrationID) {
 	return incomeInfo;
 }
 
+export function ExpenseInfoByRegistrationID(registrationID) {
+	const [expenseInfo, setExpenseInfo] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				await axios.get(`${host}/expenses/${registrationID}`).then((response) => {
+					setExpenseInfo(response.data);
+				});
+			} catch (error) {
+				console.error('Error fetching ExpenseInfo: ', error);
+			}
+		}
+		fetchData();
+	}, [registrationID]);
+
+	return expenseInfo;
+}
+
 export function IncomeTableContent(incomeData) {
 	// Initialize the monthlyCalculations array using useState
 	const [monthlyCalculations, setMonthlyCalculations] = useState([]);
@@ -156,22 +175,22 @@ export function IncomeTableContent(incomeData) {
 
 	// Iterate through the data and group entries by month
 	incomeData.forEach((entry) => {
-		const dateParts = entry.date.split('-');
-		const year = dateParts[0];
-		const month = dateParts[1];
-		const monthKey = `${year}-${month}`;
+		const monthKey = entry.date;
 
 		const monthEntry = findOrCreateMonthEntry(monthKey);
 
 		const entryIncome = parseFloat(entry.income);
-		const entryExpense = parseFloat(entry.expense);
-
+		const entryExpense = parseFloat(entry.expenses);
+		const entryTax = parseFloat(entry.tax);
 		// Add income and expense to the respective month
-		if (entryIncome) {
-			monthEntry.income += entryIncome;
+		if (!isNaN(entryIncome)) {
+			monthEntry.income = entryIncome;
 		}
-		if (entryExpense) {
-			monthEntry.expenses += entryExpense;
+		if (!isNaN(entryExpense)) {
+			monthEntry.expenses = entryExpense;
+		}
+		if (!isNaN(entryTax)) {
+			monthEntry.tax = entryTax * 0.01;
 		}
 	});
 
@@ -180,9 +199,7 @@ export function IncomeTableContent(incomeData) {
 		// Calculate net income before tax for the month
 		monthData.beforeTax = monthData.income - monthData.expenses;
 
-		// Assuming an income tax rate of 20% (adjust as needed)
-		const incomeTaxRate = 0.2;
-		monthData.taxExpense = monthData.income * incomeTaxRate;
+		monthData.taxExpense = monthData.income * monthData.tax;
 
 		// Calculate net income for the month
 		monthData.netIncome = monthData.beforeTax - monthData.taxExpense;

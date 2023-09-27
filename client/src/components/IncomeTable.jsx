@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState, useEffect } from 'react';
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 import {
@@ -25,8 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { HotelInfo, IncomeInfoByRegistrationID, IncomeTableContent } from '@/Posts';
-import { IncomeTableForm } from '@/formValue';
-
+import TaxesForm from './TaxForm';
 const columns = [
 	{
 		accessorKey: 'period',
@@ -134,8 +131,6 @@ export default function IncomeTable() {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [columnVisibility, setColumnVisibility] = useState({});
 
-	console.log(data);
-
 	const table = useReactTable({
 		data,
 		columns,
@@ -155,13 +150,14 @@ export default function IncomeTable() {
 
 	return (
 		<div className='w-full'>
-			<div className='flex items-center py-4'>
+			<div className='flex xs:flex-row flex-col md:items-center items-start py-4 gap-4'>
 				<Input
 					placeholder='Filter period...'
 					value={table.getColumn('period')?.getFilterValue() || ''}
 					onChange={(event) => table.getColumn('period')?.setFilterValue(event.target.value)}
 					className='max-w-sm'
 				/>
+				<TaxesForm />
 				{/* <DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant='outline' className='ml-auto'>

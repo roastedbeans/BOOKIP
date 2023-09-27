@@ -12,12 +12,14 @@ app.use(cors());
 // Routers
 const postRouter = require('./routes/Posts');
 const incomeRouter = require('./routes/Incomes');
+const expenseRouter = require('./routes/Expenses');
 const roomRouter = require('./routes/Rooms');
 const bookingRouter = require('./routes/Bookings');
 const registrationRouter = require('./routes/Registrations');
 
 app.use('/posts', postRouter);
 app.use('/incomes', incomeRouter);
+app.use('/expenses', expenseRouter);
 app.use('/rooms', roomRouter);
 app.use('/bookings', bookingRouter);
 app.use('/registrations', registrationRouter);
