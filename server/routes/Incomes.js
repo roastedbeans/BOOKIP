@@ -38,6 +38,7 @@ router.get('/:registrationID/:date', async (req, res) => {
 	const date = req.params.date;
 	try {
 		const income = await Income.findAll({ where: { registrationID, date } });
+
 		if (!income) {
 			return res.status(404).json({ error: 'Income not found' });
 		}
