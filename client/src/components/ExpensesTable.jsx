@@ -8,29 +8,8 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
-import { modalCustomStyles } from '@/themes';
-import { Modal } from 'react-responsive-modal';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-	SheetFooter,
-	SheetTrigger,
-} from '@/components/ui/sheet';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { HotelInfo, ExpenseInfoByRegistrationID } from '@/Posts';
 import axios from 'axios';
@@ -40,7 +19,24 @@ const columns = [
 	{
 		accessorKey: 'period',
 		header: 'Period',
-		cell: ({ row }) => <div className='capitalize'>{row.getValue('period')}</div>,
+		cell: ({ row }) => {
+			const months = [
+				'January',
+				'February',
+				'March',
+				'April',
+				'May',
+				'June',
+				'July',
+				'August',
+				'September',
+				'October',
+				'November',
+				'December',
+			];
+
+			return <div className='capitalize'>{months[parseInt(row.getValue('period')) - 1]}</div>;
+		},
 	},
 	{
 		accessorKey: 'year',
@@ -186,30 +182,6 @@ export default function ExpensesTable() {
 					className='max-w-sm'
 				/>
 				<ExpensesForm />
-				{/* <DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='outline' className='ml-auto'>
-							Period <ChevronDownIcon className='ml-2 h-4 w-4' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						{table
-							.getAllColumns()
-							.filter((column) => column.getCanHide())
-							.map((column) => {
-								return (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										className='capitalize'
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) => column.toggleVisibility(!!value)}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								);
-							})}
-					</DropdownMenuContent>
-				</DropdownMenu> */}
 			</div>
 			<div className='rounded-md border'>
 				<Table>
