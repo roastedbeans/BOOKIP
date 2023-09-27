@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = function(sequelize, DataTypes) {
-	const Income = sequelize.define('Income', {
+	const Expense = sequelize.define('Expense', {
 		id: {
 			defaultValue: () => uuidv4(),
 			type: DataTypes.STRING,
@@ -16,18 +16,26 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			allowNull: false,
 		},
-		income: {
+		operationalExpenses: {
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
-		expenses: {
+		personnelCosts: {
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
-		tax: {
+		marketingPromotions: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		guestServices: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		propertyInvestments: {
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
 	});
-	return Income;
+	return Expense;
 };

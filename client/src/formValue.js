@@ -38,9 +38,19 @@ export const bookingForm = {
 
 export const incomeForm = {
 	registrationID: '',
-	date: new Date(),
+	date: '',
 	income: '',
 	expenses: '',
+	tax: '',
+};
+
+export const expenseForm = {
+	date: '',
+	operationalExpenses: '',
+	personnelCosts: '',
+	marketingPromotions: '',
+	guestServices: '',
+	propertyInvestments: '',
 };
 
 export const IncomeTableForm = {
@@ -52,6 +62,17 @@ export const IncomeTableForm = {
 	beforeTax: '',
 	taxExpense: '',
 	netIncome: '',
+};
+
+export const ExpenseTableForm = {
+	id: '',
+	period: '',
+	year: '',
+	operationalExpenses: '',
+	personnelCosts: '',
+	marketingPromotions: '',
+	guestServices: '',
+	propertyInvestments: '',
 };
 
 export const FormSchema = Yup.object({

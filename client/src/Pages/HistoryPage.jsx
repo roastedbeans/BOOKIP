@@ -11,7 +11,7 @@ const HistoryPage = () => {
 	const hotelInfo = HotelInfo();
 
 	return (
-		<div className='w-full h-fit bg-gradient-to-tr md:from-white md:to-white from-white to-[#C7ABFF]'>
+		<div className='w-full h-fit bg-white'>
 			<Navbar />
 			<div className='w-full h-fit pt-5 pb-20 sm:px-10 px-2 m-0 flex flex-col items-center'>
 				{hotelInfo && hotelInfo.length === 0 ? (
