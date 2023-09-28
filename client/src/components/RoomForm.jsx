@@ -77,7 +77,7 @@ export default function RoomForm() {
 				<form onSubmit={onSubmit}>
 					<div className='grid items-center gap-4'>
 						<div className='flex flex-col space-y-1.5 '>
-							<Label htmlFor='name'>Name</Label>
+							<Label htmlFor='name'>Room Name</Label>
 							<Input
 								id='name'
 								name='name'

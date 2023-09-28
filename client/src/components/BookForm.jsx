@@ -44,7 +44,7 @@ const BookForm = (room) => {
 			}
 		}
 
-		if (e.target?.id === 'checkOutDate' && e.target.value != null) {
+		if (e.target?.id === 'checkOutDate' && e.target.value != null && e.target.value > dateIn) {
 			e.target.value.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
 			setOutDate(new Date(e.target.value));
 		}
@@ -60,7 +60,12 @@ const BookForm = (room) => {
 		if (selectedHours === '12 hours') {
 			setRoomRate(room.room.price12h);
 		} else if (selectedHours === '24 hours') {
-			setRoomRate(room.room.price24h * (dateOut.getDate() - dateIn.getDate()));
+			// Calculate the time difference in milliseconds between dateOut and dateIn
+			const timeDifference = dateOut.getTime() - dateIn.getTime();
+
+			// Calculate the number of days by dividing the time difference by the number of milliseconds in a day
+			const daysElapsed = Math.abs(timeDifference / (1000 * 60 * 60 * 24));
+			setRoomRate(room.room.price24h * parseInt(daysElapsed));
 		}
 		setBookInfo({
 			...bookInfo,

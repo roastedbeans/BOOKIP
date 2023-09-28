@@ -76,7 +76,7 @@ export default function HotelFormUpdate(hotel) {
 			console.log(err);
 		}
 		setHotelInfo(registerForm);
-		//window.location.reload();
+		window.location.reload();
 	};
 
 	return (

@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 		},
 		price: {
+			defaultValue: '0',
 			type: DataTypes.STRING,
 			allowNull: false,
 		},

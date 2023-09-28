@@ -17,14 +17,17 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 		},
 		income: {
+			defaultValue: '0',
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
 		expenses: {
+			defaultValue: '0',
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
 		tax: {
+			defaultValue: '0',
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
