@@ -27,9 +27,7 @@ export default function ExpensesForm() {
 			} else {
 				setExpenseInfo(expenseForm);
 			}
-			return;
 		}
-
 		setExpenseInfo({
 			...expenseInfo,
 			[e.target.id]: e.target.value,
@@ -52,11 +50,16 @@ export default function ExpensesForm() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		if (existingData) {
+		if (existingData && existingData.length > 0) {
 			// If data exists, update it
 			const updateResponse = await axios.put(`${host}/expenses/date/${expenseInfo.date}`, expenseInfo);
 			console.log(updateResponse.data);
+		} else if (existingData || existingData.length === 0) {
+			// If data doesn't exist, create it
+			const createResponse = await axios.post(`${host}/expenses`, expenseInfo);
+			console.log(createResponse.data);
 		}
+
 		const totalExpenses =
 			parseFloat(expenseInfo.operationalExpenses) +
 			parseFloat(expenseInfo.personnelCosts) +
