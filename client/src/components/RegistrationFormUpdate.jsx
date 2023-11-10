@@ -10,16 +10,14 @@ import {
 	SheetTrigger,
 } from '@/components/ui/sheet';
 import { BiEdit } from 'react-icons/bi';
-import { useUser } from '@clerk/clerk-react';
 import { registerForm } from '@/formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { host } from '@/Posts';
+import { host, user } from '@/Posts';
 import axios from 'axios';
 
 export default function HotelFormUpdate(hotel) {
-	const { user } = useUser();
 	const [hotelInfo, setHotelInfo] = useState([]);
 
 	useEffect(() => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ClerkProvider, SignedIn, SignedOut, ClerkLoading, ClerkLoaded } from '@clerk/clerk-react';
 import { BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import Dashboard from './Pages/Dashboard';
@@ -9,34 +8,26 @@ import IncomePage from './Pages/IncomePage';
 import LandingPage from './Pages/LandingPage';
 import GuidesPage from './Pages/GuidesPage';
 
-if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
-	throw new Error('Missing Publishable Key');
-}
-
-const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
-
-function ClerkProviderWithRoutes() {
-	const navigate = useNavigate();
+function App() {
+	const [signedIn, setSignedIn] = React.useState(true);
 
 	return (
-		<ClerkProvider publishableKey={clerkPubKey} navigate={(to) => navigate(to)}>
-			<ClerkLoading>
-				<LoadingPage />
-			</ClerkLoading>
+		<BrowserRouter>
+			{/* <LoadingPage /> */}
+
 			<Routes>
 				<Route
 					path='/*'
 					element={
 						<>
-							<ClerkLoaded>
-								<SignedIn>
-									<Dashboard />
-								</SignedIn>
-								<SignedOut>
+							{signedIn ? (
+								<Dashboard />
+							) : (
+								<>
 									<Navigate to='/' />
 									<LandingPage />
-								</SignedOut>
-							</ClerkLoaded>
+								</>
+							)}
 						</>
 					}
 				/>
@@ -45,15 +36,14 @@ function ClerkProviderWithRoutes() {
 					path='/dashboard'
 					element={
 						<>
-							<ClerkLoaded>
-								<SignedIn>
-									<Dashboard />
-								</SignedIn>
-								<SignedOut>
+							{signedIn ? (
+								<Dashboard />
+							) : (
+								<>
 									<Navigate to='/' />
 									<LandingPage />
-								</SignedOut>
-							</ClerkLoaded>
+								</>
+							)}
 						</>
 					}
 				/>
@@ -61,15 +51,14 @@ function ClerkProviderWithRoutes() {
 					path='/history'
 					element={
 						<>
-							<ClerkLoaded>
-								<SignedIn>
-									<HistoryPage />
-								</SignedIn>
-								<SignedOut>
+							{signedIn ? (
+								<HistoryPage />
+							) : (
+								<>
 									<Navigate to='/' />
 									<LandingPage />
-								</SignedOut>
-							</ClerkLoaded>
+								</>
+							)}
 						</>
 					}
 				/>
@@ -77,15 +66,14 @@ function ClerkProviderWithRoutes() {
 					path='/income'
 					element={
 						<>
-							<ClerkLoaded>
-								<SignedIn>
-									<IncomePage />
-								</SignedIn>
-								<SignedOut>
+							{signedIn ? (
+								<IncomePage />
+							) : (
+								<>
 									<Navigate to='/' />
 									<LandingPage />
-								</SignedOut>
-							</ClerkLoaded>
+								</>
+							)}
 						</>
 					}
 				/>
@@ -93,27 +81,18 @@ function ClerkProviderWithRoutes() {
 					path='/guides'
 					element={
 						<>
-							<ClerkLoaded>
-								<SignedIn>
-									<GuidesPage />
-								</SignedIn>
-								<SignedOut>
+							{signedIn ? (
+								<GuidesPage />
+							) : (
+								<>
 									<Navigate to='/' />
 									<LandingPage />
-								</SignedOut>
-							</ClerkLoaded>
+								</>
+							)}
 						</>
 					}
 				/>
 			</Routes>
-		</ClerkProvider>
-	);
-}
-
-function App() {
-	return (
-		<BrowserRouter>
-			<ClerkProviderWithRoutes />
 		</BrowserRouter>
 	);
 }

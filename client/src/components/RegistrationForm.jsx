@@ -1,15 +1,14 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { useUser } from '@clerk/clerk-react';
 import { registerForm } from '../formValue';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { host } from '@/Posts';
+import { host, user } from '@/Posts';
 import axios from 'axios';
 
 export default function HotelForm() {
-	const { user } = useUser();
 	const [hotelInfo, setHotelInfo] = useState(registerForm);
 
 	const onHandleChange = async (e) => {

@@ -1,6 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 import React, { useState, useRef } from 'react';
-import { SignIn, SignUp } from '@clerk/clerk-react';
+import SignUp from '@/components/SignUp';
+import SignIn from '@/components/SignIn';
 import BookipTrans2 from '@/assets/Bookip-transparent2.png';
 import background from '@/assets/background.svg';
 
@@ -8,6 +9,16 @@ export default function LandingPage() {
 	const [showSignUp, setShowSignUp] = useState(false);
 	const [showSignIn, setShowSignIn] = useState(false);
 	const containerRef = useRef(null);
+
+	const onClickRegister = () => {
+		setShowSignUp(true);
+		setShowSignIn(false);
+	};
+
+	const onClickSignIn = () => {
+		setShowSignUp(false);
+		setShowSignIn(true);
+	};
 
 	const scrollToBottom = () => {
 		if (containerRef.current) {
@@ -85,9 +96,9 @@ export default function LandingPage() {
 								</button>
 							</div>
 						</div>
-						{/* Clerk Card */}
+
 						<div
-							className={` flex transition duration-500 2xl:justify-start self-center justify-center xl:items-center w-3/4 items-start ${
+							className={` flex transition duration-500 2xl:justify-start self-center justify-center xl:items-center w-full items-start m-0 p-0 ${
 								showSignUp || showSignIn
 									? '2xl:-translate-x-[0] 2xl:scale-100 scale-y-100 h-fit relative'
 									: '2xl:translate-x-[1000px] 2xl:scale-100 scale-y-0 h-[0] relative'
@@ -98,14 +109,14 @@ export default function LandingPage() {
 									showSignUp || !showSignIn ? 'xs:scale-100 scale-[98%] opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignUp path='/' routing='path' />
+								<SignUp onClickSignIn={() => onClickSignIn()} />
 							</div>
 							<div
 								className={`2xl:translate-x-8 -translate-x-[50%] transition duration-500 2xl:absolute relative ease-in-out ${
 									!showSignUp || showSignIn ? 'xs:scale-100 scale-[98%] opacity-100 absolute' : 'scale-0 opacity-0 '
 								}`}
 							>
-								<SignIn path='/' routing='path' />
+								<SignIn onClickRegister={() => onClickRegister()} />
 							</div>
 						</div>
 					</div>

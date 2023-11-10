@@ -3,5 +3,6 @@
         "airconditioned",
         "BOOKIP",
         "complimentaries"
-    ]
+    ],
+    "nuxt.isNuxtApp": false
 }

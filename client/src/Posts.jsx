@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useUser } from '@clerk/clerk-react';
 import { IncomeTableForm, incomeForm, ExpenseTableForm } from './formValue';
 
-//export const host = 'http://localhost:5000';
-export const host = 'https://bookip-server.onrender.com';
+export const host = 'http://localhost:5000';
+export const user = { id: 1, name: 'John Doe' };
 
 export function HotelInfo() {
-	const { user } = useUser();
 	const [hotelInfo, setHotelInfo] = useState([]);
 
 	useEffect(() => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { UserButton } from '@clerk/clerk-react';
 import logo from '../assets/Bookip-transparent4.png';
 import Clock from 'react-live-clock';
 import { Calendar } from '../components/ui/calendar';
@@ -95,9 +94,7 @@ export default function Navbar() {
 										''
 									)}
 								</div>
-								<div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-									<UserButton />
-								</div>
+								<div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 w-8'></div>
 							</div>
 						</div>
 

@@ -1,6 +1,7 @@
 {
 	"development": {
 	  "username": "root",
+	  "port": "3306",
 	  "password": "p@ssw0rd",
 	  "database": "bookip_db",
 	  "host": "localhost",
@@ -14,10 +15,11 @@
 	  "dialect": "mysql"
 	},
 	"production": {
-	  "username": "sql12649537",
-	  "password": "ErVs7g2WmG",
-	  "database": "sql12649537",
-	  "host": "sql12.freesqldatabase.com",
+	  "username": "root",
+	  "port": "3306",
+	  "password": "p@ssw0rd",
+	  "database": "bookip_db",
+	  "host": "localhost",
 	  "dialect": "mysql"
 	}
   }
